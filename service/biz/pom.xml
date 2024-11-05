@@ -8,9 +8,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.shiyu</groupId>
+    <groupId>com.shiyu.service</groupId>
     <artifactId>biz</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <name>biz</name>
     <description>biz</description>
@@ -18,9 +19,8 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.shiyu</groupId>
+            <groupId>com.shiyu.service</groupId>
             <artifactId>core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

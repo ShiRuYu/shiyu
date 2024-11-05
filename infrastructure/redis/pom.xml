@@ -8,9 +8,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.shiyu</groupId>
+    <groupId>com.shiyu.infrastructure</groupId>
     <artifactId>redis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <name>redis</name>
     <description>redis</description>

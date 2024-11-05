@@ -1,6 +1,0 @@
-2024-11-04 21:38:44.330 => [main] => [] INFO  com.shiyu.bootstrap.BootstrapApplication:(50) - Starting BootstrapApplication using Java 17.0.5 with PID 11292 (D:\WorkSpace\Java\shiyu\bootstrap\target\classes started by 87670 in D:\WorkSpace\Java\shiyu)
-2024-11-04 21:38:44.336 => [main] => [] INFO  com.shiyu.bootstrap.BootstrapApplication:(654) - No active profile set, falling back to 1 default profile: "default"
-2024-11-04 21:38:45.295 => [main] => [] INFO  com.shiyu.bootstrap.BootstrapApplication:(56) - Started BootstrapApplication in 1.264 seconds (process running for 2.125)
-2024-11-04 21:50:54.482 => [main] => [] INFO  com.shiyu.bootstrap.BootstrapApplication:(50) - Starting BootstrapApplication using Java 17.0.5 with PID 15712 (D:\WorkSpace\Java\shiyu\bootstrap\target\classes started by 87670 in D:\WorkSpace\Java\shiyu)
-2024-11-04 21:50:54.490 => [main] => [] INFO  com.shiyu.bootstrap.BootstrapApplication:(654) - No active profile set, falling back to 1 default profile: "default"
-2024-11-04 21:50:55.574 => [main] => [] INFO  com.shiyu.bootstrap.BootstrapApplication:(56) - Started BootstrapApplication in 1.425 seconds (process running for 2.49)

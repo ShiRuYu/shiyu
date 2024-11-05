@@ -17,6 +17,10 @@
     <description>service</description>
 
     <dependencies>
+        <dependency>
+            <groupId>com.shiyu.infrastructure</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

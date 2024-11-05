@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./infrastructure/datasource/src/main/resources/db/h2/shiyu;DB_CLOSE_DELAY=-1;MODE=MySQL;DATABASE_TO_LOWER=true;IGNORECASE=TRUE
+    driver-class-name: org.h2.Driver
+    username: shiyu
+    password:
+  h2:
+    console:
+      path: /h2
+      enabled: true
+      settings:
+        web-allow-others: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
