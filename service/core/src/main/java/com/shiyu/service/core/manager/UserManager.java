@@ -1,8 +1,8 @@
-package com.shiyu.service.biz;
+package com.shiyu.service.core.manager;
 
 import com.shiyu.infrastructure.datasource.model.UserPO;
 
-public interface UserService {
+public interface UserManager {
     UserPO save(UserPO userPO);
 
     UserPO findById(Long id);

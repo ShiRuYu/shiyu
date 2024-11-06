@@ -1,7 +1,9 @@
-package com.shiyu.service.core;
+package com.shiyu.service.core.manager.Impl;
 
 import com.shiyu.infrastructure.datasource.model.UserPO;
 import com.shiyu.infrastructure.datasource.repository.UserRepository;
+import com.shiyu.infrastructure.datasource.repository.UserRoleRepository;
+import com.shiyu.service.core.manager.UserManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserManagerImpl implements UserManager {
     private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
 
     @Override
     public UserPO save(UserPO userPO){

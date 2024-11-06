@@ -1,7 +1,8 @@
-package com.shiyu.service.biz;
+package com.shiyu.service.biz.service.Impl;
 
 import com.shiyu.infrastructure.datasource.model.UserPO;
-import com.shiyu.service.core.UserManager;
+import com.shiyu.service.biz.service.UserService;
+import com.shiyu.service.core.manager.UserManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
