@@ -1,9 +1,9 @@
 package com.shiyu.web.controller;
 
 import com.google.common.collect.Lists;
+import com.shiyu.service.biz.model.web.UserDTO;
+import com.shiyu.service.biz.model.web.UserVO;
 import com.shiyu.service.biz.service.UserService;
-import com.shiyu.web.model.UserDTO;
-import com.shiyu.web.model.UserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +31,7 @@ public class UserController {
      */
     @GetMapping("detail")
     public UserVO detail(Long id){
-        return null;
+        return userService.detail(id);
     }
     /**
      * 删除用户
@@ -44,14 +44,14 @@ public class UserController {
      * 修改用户
      */
     @PostMapping("update")
-    public UserVO save(UserDTO userDTO){
+    public UserVO update(UserDTO userDTO){
         return null;
     }
     /**
      * 新增用户
      */
     @PostMapping("add")
-    public UserVO add(UserDTO userDTO){
-        return null;
+    public UserVO save(UserDTO userDTO){
+        return userService.save(userDTO);
     }
 }

@@ -1,28 +1,18 @@
-package com.shiyu.web.model;
+package com.shiyu.service.biz.model.web;
 
-import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
-public class UserVO implements Serializable {
+public class UserDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = -6268366220280617872L;
     /**
      * ID
      */
     private Long id;
-    /**
-     * 创建时间
-     */
-    private String createTime;
-    /**
-     * 更新时间
-     */
-    private String updateTime;
     /**
      * 昵称
      */
@@ -55,4 +45,12 @@ public class UserVO implements Serializable {
      * 个性签名
      */
     private String signature;
+    /**
+     * 密码
+     */
+    private String password;
+    /**
+     * 扩展信息
+     */
+    private String extInfo;
 }

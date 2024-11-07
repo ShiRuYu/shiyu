@@ -1,26 +1,16 @@
-package com.shiyu.web.model;
+package com.shiyu.service.core.model;
 
 import lombok.Data;
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Data
-public class UserDTO implements Serializable {
-    @Serial
-    private static final long serialVersionUID = -6268366220280617872L;
+public class UserBO {
     /**
      * ID
      */
     private Long id;
-    /**
-     * 创建时间
-     */
-    private String createTime;
-    /**
-     * 更新时间
-     */
-    private String updateTime;
     /**
      * 昵称
      */
@@ -40,7 +30,7 @@ public class UserDTO implements Serializable {
     /**
      * 生日
      */
-    private String birthday;
+    private Date birthday;
     /**
      * 地址
      */
@@ -54,11 +44,17 @@ public class UserDTO implements Serializable {
      */
     private String signature;
     /**
-     * 密码
-     */
-    private String password;
-    /**
      * 扩展信息
      */
     private String extInfo;
+
+    /**
+     * 拥有角色
+     */
+    private List<Long> roleIds;
+    /**
+     * 当前角色
+     */
+    private Long currentRoleId;
+
 }

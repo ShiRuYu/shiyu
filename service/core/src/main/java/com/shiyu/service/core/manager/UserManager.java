@@ -1,9 +1,10 @@
 package com.shiyu.service.core.manager;
 
 import com.shiyu.infrastructure.datasource.model.UserPO;
+import com.shiyu.service.core.model.UserBO;
 
 public interface UserManager {
-    UserPO save(UserPO userPO);
+    UserBO save(UserBO userBO);
 
-    UserPO findById(Long id);
+    UserBO findById(Long id);
 }

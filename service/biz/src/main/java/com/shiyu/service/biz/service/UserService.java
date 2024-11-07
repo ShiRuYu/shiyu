@@ -1,9 +1,10 @@
 package com.shiyu.service.biz.service;
 
-import com.shiyu.infrastructure.datasource.model.UserPO;
+import com.shiyu.service.biz.model.web.UserDTO;
+import com.shiyu.service.biz.model.web.UserVO;
 
 public interface UserService {
-    UserPO save(UserPO userPO);
+    UserVO save(UserDTO userDTO);
 
-    UserPO findById(Long id);
+    UserVO detail(Long id);
 }

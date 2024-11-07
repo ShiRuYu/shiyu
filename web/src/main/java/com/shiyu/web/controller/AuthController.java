@@ -1,6 +1,6 @@
 package com.shiyu.web.controller;
 
-import com.shiyu.web.model.UserVO;
+import com.shiyu.service.biz.model.web.UserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
