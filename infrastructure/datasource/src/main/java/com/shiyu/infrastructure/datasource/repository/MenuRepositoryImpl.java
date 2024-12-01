@@ -2,6 +2,7 @@ package com.shiyu.infrastructure.datasource.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import com.shiyu.common.utils.ResultPage;
 import com.shiyu.domain.auth.model.Menu;
 import com.shiyu.domain.auth.repository.MenuRepository;
 import com.shiyu.infrastructure.datasource.mapper.MenuMapper;
@@ -37,13 +38,13 @@ public class MenuRepositoryImpl implements MenuRepository {
     }
 
     @Override
-    public List<Menu> selectPage(Integer pageNo, Integer pageSize) {
+    public ResultPage<Menu> selectPage(Integer pageNo, Integer pageSize) {
         // queryWrapper组装查询where条件
         LambdaQueryWrapper<MenuPO> queryWrapper = new LambdaQueryWrapper<>();
         // 分页参数
         PageDTO<MenuPO> menuPOPageDTO = mapper.selectPage(new PageDTO<>(pageNo, pageSize), queryWrapper);
 
-        return MenuConvertMapper.INSTANCE.listPoToDetail(menuPOPageDTO.getRecords());
+        return MenuConvertMapper.INSTANCE.poPageToDetailPage(menuPOPageDTO);
     }
 
     @Override

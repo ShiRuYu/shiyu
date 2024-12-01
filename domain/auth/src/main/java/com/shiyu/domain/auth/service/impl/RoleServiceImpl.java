@@ -1,5 +1,6 @@
 package com.shiyu.domain.auth.service.impl;
 
+import com.shiyu.common.utils.ResultPage;
 import com.shiyu.domain.auth.model.Role;
 import com.shiyu.domain.auth.repository.RoleRepository;
 import com.shiyu.domain.auth.service.RoleService;
@@ -29,7 +30,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> selectPage(Integer pageNo, Integer pageSize) {
+    public ResultPage<Role> selectPage(Integer pageNo, Integer pageSize) {
         return roleRepository.selectPage(pageNo, pageSize);
     }
 

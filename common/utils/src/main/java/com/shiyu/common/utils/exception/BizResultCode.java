@@ -6,17 +6,16 @@ import lombok.RequiredArgsConstructor;
 /**
  * 业务响应码
  *
- * @author dhb
  */
 @Getter
 @RequiredArgsConstructor
-public enum BizResponseCode {
+public enum BizResultCode {
 
     /**
      * 正常响应码
      */
-    OK(0, "OK"),
-    ERR_400(400, "参数错误"),
+    SUC(200, "成功"),
+    ERR(400, "请求失败"),
 
     ERR_10001(10001, "用户已存在"),
     ERR_10002(10002, "用户名或密码错误"),

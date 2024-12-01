@@ -24,6 +24,6 @@ public interface UserConvertMapper {
     @Mappings(
             @Mapping(source = "records",target = "data")
     )
-    ResultPage<User> boPageToDetailPage(PageDTO<UserPO> userPOPageDTO);
+    ResultPage<User> poPageToDetailPage(PageDTO<UserPO> userPOPageDTO);
 
 }

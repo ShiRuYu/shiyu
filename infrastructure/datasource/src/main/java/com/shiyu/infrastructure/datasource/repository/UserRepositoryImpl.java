@@ -45,7 +45,7 @@ public class UserRepositoryImpl implements UserRepository {
         LambdaQueryWrapper<UserPO> queryWrapper = new LambdaQueryWrapper<>();
         // 分页参数
         PageDTO<UserPO> userPOPageDTO = userMapper.selectPage(new PageDTO<>(pageNo, pageSize), queryWrapper);
-        return UserConvertMapper.INSTANCE.boPageToDetailPage(userPOPageDTO);
+        return UserConvertMapper.INSTANCE.poPageToDetailPage(userPOPageDTO);
     }
 
     @Override

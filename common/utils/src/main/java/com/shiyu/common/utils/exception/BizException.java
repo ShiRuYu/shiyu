@@ -5,21 +5,20 @@ import lombok.Getter;
 /**
  * 业务异常，这种异常一般是可预知的
  *
- * @author dhb
  */
 @Getter
 public class BizException extends RuntimeException {
 
-    private final BizResponseCode code;
+    private final BizResultCode code;
 
-    public BizException(BizResponseCode bizResponseCode) {
-        super(bizResponseCode.getMsg());
-        this.code = bizResponseCode;
+    public BizException(BizResultCode bizResultCode) {
+        super(bizResultCode.getMsg());
+        this.code = bizResultCode;
     }
 
-    public BizException(BizResponseCode bizResponseCode, String msg) {
+    public BizException(BizResultCode bizResultCode, String msg) {
         super(msg);
-        this.code = bizResponseCode;
+        this.code = bizResultCode;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.shiyu.domain.auth.service.impl;
 
+import com.shiyu.common.utils.ResultPage;
 import com.shiyu.domain.auth.model.Menu;
 import com.shiyu.domain.auth.repository.MenuRepository;
 import com.shiyu.domain.auth.service.MenuService;
@@ -29,7 +30,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> selectPage(Integer pageNo, Integer pageSize) {
+    public ResultPage<Menu> selectPage(Integer pageNo, Integer pageSize) {
         return menuRepository.selectPage(pageNo, pageSize);
     }
 

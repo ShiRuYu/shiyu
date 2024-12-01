@@ -1,6 +1,7 @@
 package com.shiyu.domain.auth.repository;
 
 
+import com.shiyu.common.utils.ResultPage;
 import com.shiyu.domain.auth.model.Menu;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface MenuRepository {
 
     void delete(Long id);
 
-    List<Menu> selectPage(Integer pageNo, Integer pageSize);
+    ResultPage<Menu> selectPage(Integer pageNo, Integer pageSize);
 
     Menu selectById(Long id);
 

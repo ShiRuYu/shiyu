@@ -2,6 +2,7 @@ package com.shiyu.infrastructure.datasource.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import com.shiyu.common.utils.ResultPage;
 import com.shiyu.domain.auth.model.Role;
 import com.shiyu.domain.auth.repository.RoleRepository;
 import com.shiyu.infrastructure.datasource.mapper.RoleMapper;
@@ -37,12 +38,12 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
     @Override
-    public List<Role> selectPage(Integer pageNo, Integer pageSize) {
+    public ResultPage<Role> selectPage(Integer pageNo, Integer pageSize) {
         // queryWrapper组装查询where条件
         LambdaQueryWrapper<RolePO> queryWrapper = new LambdaQueryWrapper<>();
         // 分页参数
         PageDTO<RolePO> rolePOPageDTO = roleMapper.selectPage(new PageDTO<>(pageNo, pageSize), queryWrapper);
-        return RoleConvertMapper.INSTANCE.listPoToDetail(rolePOPageDTO.getRecords());
+        return RoleConvertMapper.INSTANCE.poPageToDetailPage(rolePOPageDTO);
     }
 
     @Override
