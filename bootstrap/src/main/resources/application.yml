@@ -7,5 +7,5 @@ spring:
     name: shiyu
   profiles:
     group:
-      dev: web,druid,mysql,mybatis-plus
+      dev: web-isme,druid,mysql,mybatis-plus
     default: dev

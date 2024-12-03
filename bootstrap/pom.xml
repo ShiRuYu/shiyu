@@ -18,13 +18,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.shiyu</groupId>
-            <artifactId>application</artifactId>
+            <groupId>com.shiyu.web</groupId>
+            <artifactId>isme</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
         </dependency>
 
         <dependency>
