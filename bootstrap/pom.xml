@@ -7,7 +7,6 @@
         <artifactId>shiyu</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
     <groupId>com.shiyu</groupId>
     <artifactId>bootstrap</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -18,39 +17,18 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.shiyu.core</groupId>
+            <artifactId>container</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.shiyu.web</groupId>
             <artifactId>isme</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
+            <groupId>com.shiyu.web</groupId>
+            <artifactId>test</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
     </dependencies>
-    <build>
-        <finalName>shiyu</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.3.5</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- 将引入的jar打入其中 -->
-                            <goal>
-                                repackage
-                            </goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

@@ -1,3 +1,5 @@
+server:
+  port: 8081
 # springdoc-openapi项目配置
 springdoc:
   swagger-ui:

@@ -41,11 +41,9 @@
     </properties>
 
     <modules>
-        <module>application</module>
         <module>bootstrap</module>
-        <module>common</module>
-        <module>domain</module>
-        <module>infrastructure</module>
+        <module>commons</module>
+        <module>core</module>
         <module>web</module>
     </modules>
 
@@ -66,7 +64,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -182,42 +183,37 @@
 
             <dependency>
                 <groupId>com.shiyu</groupId>
-                <artifactId>application</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.shiyu</groupId>
                 <artifactId>bootstrap</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.shiyu.common</groupId>
-                <artifactId>utils</artifactId>
+                <groupId>com.shiyu</groupId>
+                <artifactId>commons</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.shiyu.domain</groupId>
+                <groupId>com.shiyu.core</groupId>
+                <artifactId>container</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.shiyu.core.domain</groupId>
                 <artifactId>auth</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.shiyu.infrastructure</groupId>
+                <groupId>com.shiyu.core.infrastructure</groupId>
                 <artifactId>datasource</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.shiyu.infrastructure</groupId>
-                <artifactId>integration</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.shiyu.infrastructure</groupId>
-                <artifactId>redis</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.shiyu.web</groupId>
                 <artifactId>isme</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.shiyu.web</groupId>
+                <artifactId>test</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 

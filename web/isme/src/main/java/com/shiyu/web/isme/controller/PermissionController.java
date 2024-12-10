@@ -2,7 +2,7 @@ package com.shiyu.web.isme.controller;
 
 import cn.hutool.core.lang.tree.Tree;
 import com.google.common.collect.Lists;
-import com.shiyu.common.utils.Result;
+import com.shiyu.commons.utils.Result;
 import com.shiyu.web.isme.request.CreatePermissionRequest;
 import com.shiyu.web.isme.request.UpdatePermissionRequest;
 import com.shiyu.web.isme.result.PermissionResult;

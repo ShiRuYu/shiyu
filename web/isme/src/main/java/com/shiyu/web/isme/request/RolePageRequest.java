@@ -1,6 +1,6 @@
 package com.shiyu.web.isme.request;
 
-import com.shiyu.common.utils.PageRequest;
+import com.shiyu.commons.utils.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

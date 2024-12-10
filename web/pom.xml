@@ -7,7 +7,6 @@
         <artifactId>shiyu</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
     <groupId>com.shiyu</groupId>
     <artifactId>web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -18,16 +17,13 @@
 
     <modules>
         <module>isme</module>
+        <module>test</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>com.shiyu</groupId>
-            <artifactId>application</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.shiyu.common</groupId>
-            <artifactId>utils</artifactId>
+            <artifactId>commons</artifactId>
         </dependency>
 
         <dependency>
@@ -45,11 +41,6 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-3-starter</artifactId>
-            <scope>provided</scope>
         </dependency>
 
     </dependencies>
