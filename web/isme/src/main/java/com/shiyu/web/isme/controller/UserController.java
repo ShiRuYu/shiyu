@@ -7,12 +7,16 @@ import com.shiyu.commons.utils.Result;
 import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.commons.utils.exception.BizException;
 import com.shiyu.commons.utils.exception.BizResultCode;
+import com.shiyu.core.domain.auth.model.UserAggregate;
+import com.shiyu.core.domain.auth.repository.UserRepository;
+import com.shiyu.core.domain.auth.service.AuthService;
 import com.shiyu.web.isme.config.SaTokenConfigure;
 import com.shiyu.web.isme.request.*;
 import com.shiyu.web.isme.result.UserDetailResult;
 import com.shiyu.web.isme.result.UserPageResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +32,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "用户")
 public class UserController {
+    private final AuthService authService;
+    @GetMapping("test")
+    @Operation(summary = "测试请求")
+    public Result<UserAggregate> test() {
+        UserAggregate userAggregateById = authService.getUserAggregateById(1L);
+        return Result.success(userAggregateById);
+    }
 
     @GetMapping("/detail")
     @Operation(summary = "用户信息")

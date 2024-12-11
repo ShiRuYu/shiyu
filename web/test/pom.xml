@@ -17,6 +17,10 @@
     <description>test</description>
 
     <dependencies>
+        <dependency>
+            <groupId>com.shiyu.core.domain</groupId>
+            <artifactId>auth</artifactId>
+        </dependency>
     </dependencies>
 
 

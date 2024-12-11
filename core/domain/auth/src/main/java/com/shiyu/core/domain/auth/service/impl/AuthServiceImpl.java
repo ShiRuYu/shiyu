@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +22,11 @@ public class AuthServiceImpl implements AuthService {
     private final MenuRepository menuRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private static String test = "test";
 
     @Override
     public UserAggregate getUserAggregateById(Long id) {
+        test = String.valueOf(UUID.randomUUID());
         User user = userRepository.selectById(id);
         if (Objects.isNull(user)){
             return null;
