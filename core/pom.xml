@@ -17,6 +17,7 @@
     <description>core</description>
 
     <modules>
+        <module>container</module>
         <module>domain</module>
         <module>infrastructure</module>
     </modules>
