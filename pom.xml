@@ -30,7 +30,7 @@
         <caffeine.version>3.1.8</caffeine.version>
 
         <sa-token-spring-boot3-starter.version>1.39.0</sa-token-spring-boot3-starter.version>
-
+        <sa-token-jwt.version>1.39.0</sa-token-jwt.version>
         <druid-spring-boot-3-starter.version>1.2.21</druid-spring-boot-3-starter.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <mybatis-spring-boot-starter.version>3.0.3</mybatis-spring-boot-starter.version>
@@ -43,7 +43,7 @@
     <modules>
         <module>application</module>
         <module>bootstrap</module>
-        <module>common</module>
+        <module>commons</module>
         <module>domain</module>
         <module>infrastructure</module>
         <module>web</module>
@@ -128,7 +128,7 @@
             <dependency>
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-jwt</artifactId>
-                <version>1.39.0</version>
+                <version>${sa-token-jwt.version}</version>
             </dependency>
 
 
@@ -191,8 +191,8 @@
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.shiyu.common</groupId>
-                <artifactId>utils</artifactId>
+                <groupId>com.shiyu</groupId>
+                <artifactId>commons</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -206,18 +206,8 @@
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.shiyu.infrastructure</groupId>
-                <artifactId>integration</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.shiyu.infrastructure</groupId>
-                <artifactId>redis</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.shiyu.web</groupId>
-                <artifactId>isme</artifactId>
+                <groupId>com.shiyu</groupId>
+                <artifactId>web</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 

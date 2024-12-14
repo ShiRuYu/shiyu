@@ -1,6 +1,6 @@
 package com.shiyu.domain.auth.service;
 
-import com.shiyu.common.utils.ResultPage;
+import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.Role;
 
 import java.util.List;

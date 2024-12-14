@@ -1,0 +1,27 @@
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'shiyu'
+      paths-to-match: '/**'
+      packages-to-scan: com.shiyu.web
+# knife4j的增强配置，不需要增强可以不配(建议配置一下)
+knife4j:
+  enable: true    #开启knife4j,无需添加@EnableKnife4j注解
+  # 标识是否生产环境：true-生产环境关闭文档，false-显示文档
+  # production: false
+  setting:
+    language: zh_cn   #中文
+    swagger-model-name: 实体类列表   #重命名SwaggerModel名称,默认
+    #开启Swagger的Basic认证功能,默认是false
+    # basic:
+    # enable: true
+    # Basic认证用户名
+    # username: ******
+    # Basic认证密码
+    # password: ******

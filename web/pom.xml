@@ -11,29 +11,20 @@
     <groupId>com.shiyu</groupId>
     <artifactId>web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>web</name>
     <description>web</description>
-
-    <modules>
-        <module>isme</module>
-    </modules>
 
     <dependencies>
         <dependency>
             <groupId>com.shiyu</groupId>
             <artifactId>application</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.shiyu.common</groupId>
-            <artifactId>utils</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>cn.dev33</groupId>
@@ -46,6 +37,11 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-3-starter</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

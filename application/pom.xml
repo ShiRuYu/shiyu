@@ -17,10 +17,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.shiyu.common</groupId>
-            <artifactId>utils</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.shiyu.domain</groupId>
             <artifactId>auth</artifactId>
         </dependency>
@@ -28,15 +24,6 @@
             <groupId>com.shiyu.infrastructure</groupId>
             <artifactId>datasource</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.shiyu.infrastructure</groupId>
-            <artifactId>integration</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.shiyu.infrastructure</groupId>
-            <artifactId>redis</artifactId>
-        </dependency>
-
 
     </dependencies>
 

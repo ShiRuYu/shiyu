@@ -2,7 +2,7 @@ package com.shiyu.infrastructure.datasource.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
-import com.shiyu.common.utils.ResultPage;
+import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.Menu;
 import com.shiyu.domain.auth.repository.MenuRepository;
 import com.shiyu.infrastructure.datasource.mapper.MenuMapper;

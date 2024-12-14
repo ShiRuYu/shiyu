@@ -1,7 +1,7 @@
 package com.shiyu.infrastructure.datasource.mapstruct;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
-import com.shiyu.common.utils.ResultPage;
+import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.User;
 import com.shiyu.infrastructure.datasource.model.UserPO;
 import org.mapstruct.Mapping;

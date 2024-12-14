@@ -22,8 +22,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.shiyu.common</groupId>
-            <artifactId>utils</artifactId>
+            <groupId>com.shiyu</groupId>
+            <artifactId>commons</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,6 @@
 package com.shiyu.domain.auth.service;
 
-import com.shiyu.common.utils.ResultPage;
+import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.Menu;
 
 import java.util.List;
