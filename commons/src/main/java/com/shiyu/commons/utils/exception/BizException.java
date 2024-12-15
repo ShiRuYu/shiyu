@@ -1,5 +1,6 @@
 package com.shiyu.commons.utils.exception;
 
+import com.shiyu.commons.utils.BizResultCode;
 import lombok.Getter;
 
 /**

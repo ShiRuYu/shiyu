@@ -1,6 +1,5 @@
 package com.shiyu.commons.utils;
 
-import com.shiyu.commons.utils.exception.BizResultCode;
 import lombok.Data;
 
 import java.util.Collection;

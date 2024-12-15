@@ -6,7 +6,7 @@ import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.Menu;
 import com.shiyu.domain.auth.repository.MenuRepository;
 import com.shiyu.infrastructure.datasource.mapper.MenuMapper;
-import com.shiyu.infrastructure.datasource.mapstruct.MenuConvertMapper;
+import com.shiyu.infrastructure.datasource.mapstruct.MenuDBConvertMapper;
 import com.shiyu.infrastructure.datasource.model.MenuPO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,16 +20,16 @@ public class MenuRepositoryImpl implements MenuRepository {
 
     @Override
     public Menu save(Menu menu) {
-        mapper.insert(MenuConvertMapper.INSTANCE.detailToPo(menu));
+        mapper.insert(MenuDBConvertMapper.INSTANCE.detailToPo(menu));
         MenuPO menuPO = mapper.selectById(menu.getId());
-        return MenuConvertMapper.INSTANCE.poToDetail(menuPO);
+        return MenuDBConvertMapper.INSTANCE.poToDetail(menuPO);
     }
 
     @Override
     public Menu update(Menu menu) {
-        mapper.updateById(MenuConvertMapper.INSTANCE.detailToPo(menu));
+        mapper.updateById(MenuDBConvertMapper.INSTANCE.detailToPo(menu));
         MenuPO menuPO = mapper.selectById(menu.getId());
-        return MenuConvertMapper.INSTANCE.poToDetail(menuPO);
+        return MenuDBConvertMapper.INSTANCE.poToDetail(menuPO);
     }
 
     @Override
@@ -44,18 +44,18 @@ public class MenuRepositoryImpl implements MenuRepository {
         // 分页参数
         PageDTO<MenuPO> menuPOPageDTO = mapper.selectPage(new PageDTO<>(pageNo, pageSize), queryWrapper);
 
-        return MenuConvertMapper.INSTANCE.poPageToDetailPage(menuPOPageDTO);
+        return MenuDBConvertMapper.INSTANCE.poPageToDetailPage(menuPOPageDTO);
     }
 
     @Override
     public Menu selectById(Long id){
         MenuPO menuPO = mapper.selectById(id);
-        return MenuConvertMapper.INSTANCE.poToDetail(menuPO);
+        return MenuDBConvertMapper.INSTANCE.poToDetail(menuPO);
     }
 
     @Override
     public List<Menu> selectBatchIds(List<Long> menuIdList) {
         List<MenuPO> menuPOList = mapper.selectBatchIds(menuIdList);
-        return MenuConvertMapper.INSTANCE.listPoToDetail(menuPOList);
+        return MenuDBConvertMapper.INSTANCE.listPoToDetail(menuPOList);
     }
 }

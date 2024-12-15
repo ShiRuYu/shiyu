@@ -4,13 +4,14 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.captcha.ICaptcha;
 import cn.hutool.core.convert.NumberWithFormat;
 import cn.hutool.core.lang.Pair;
+import com.shiyu.bootstrap.isme.auth.AuthManager;
 import com.shiyu.commons.utils.Result;
-import com.shiyu.commons.utils.cache.CaptchaCacheUtil;
+import com.shiyu.infrastructure.datasource.cache.CaptchaCacheHelper;
 import com.shiyu.web.config.SaTokenConfigure;
-import com.shiyu.web.isme.request.ChangePasswordRequest;
-import com.shiyu.web.isme.request.LoginRequest;
-import com.shiyu.web.isme.request.RegisterUserRequest;
-import com.shiyu.web.isme.result.LoginResult;
+import com.shiyu.bootstrap.isme.request.ChangePasswordRequest;
+import com.shiyu.bootstrap.isme.request.LoginRequest;
+import com.shiyu.bootstrap.isme.request.RegisterUserRequest;
+import com.shiyu.bootstrap.isme.result.LoginResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,18 +32,21 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Tag(name = "鉴权")
 public class AuthController {
+    private final AuthManager authManager;
+    private final CaptchaCacheHelper captchaCacheHelper;
+
     private static final String CAPTCHA_KEY = "captchaKey";
 
     @PostMapping("/login")
     @Operation(summary = "登录")
     public Result<LoginResult> login(@RequestBody final LoginRequest request,
                                      HttpServletRequest httpServletRequest) {
-        LoginResult loginResult = new LoginResult();
         HttpSession session = httpServletRequest.getSession();
         String captchaKey = (String) session.getAttribute(CAPTCHA_KEY);
         if (captchaKey != null) {
             request.setCaptchaKey(captchaKey);
         }
+        LoginResult loginResult = authManager.login(request);
         return Result.success(loginResult);
     }
 
@@ -50,7 +54,7 @@ public class AuthController {
     @Operation(summary = "验证码")
     @SneakyThrows
     public void captcha(HttpServletRequest request, HttpServletResponse response){
-        Pair<String, ICaptcha> captchaPair = CaptchaCacheUtil.create();
+        Pair<String, ICaptcha> captchaPair = captchaCacheHelper.create();
         HttpSession session = request.getSession();
         session.setAttribute(CAPTCHA_KEY, captchaPair.getKey());
         captchaPair.getValue().write(response.getOutputStream());

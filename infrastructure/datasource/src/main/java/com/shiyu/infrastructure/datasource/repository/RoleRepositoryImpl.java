@@ -6,7 +6,7 @@ import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.Role;
 import com.shiyu.domain.auth.repository.RoleRepository;
 import com.shiyu.infrastructure.datasource.mapper.RoleMapper;
-import com.shiyu.infrastructure.datasource.mapstruct.RoleConvertMapper;
+import com.shiyu.infrastructure.datasource.mapstruct.RoleDBConvertMapper;
 import com.shiyu.infrastructure.datasource.model.RolePO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,16 +20,16 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public Role save(Role role) {
-        roleMapper.insert(RoleConvertMapper.INSTANCE.detailToPo(role));
+        roleMapper.insert(RoleDBConvertMapper.INSTANCE.detailToPo(role));
         RolePO rolePO = roleMapper.selectById(role.getId());
-        return RoleConvertMapper.INSTANCE.poToDetail(rolePO);
+        return RoleDBConvertMapper.INSTANCE.poToDetail(rolePO);
     }
 
     @Override
     public Role update(Role role) {
-        roleMapper.updateById(RoleConvertMapper.INSTANCE.detailToPo(role));
+        roleMapper.updateById(RoleDBConvertMapper.INSTANCE.detailToPo(role));
         RolePO rolePO = roleMapper.selectById(role.getId());
-        return RoleConvertMapper.INSTANCE.poToDetail(rolePO);
+        return RoleDBConvertMapper.INSTANCE.poToDetail(rolePO);
     }
 
     @Override
@@ -43,18 +43,18 @@ public class RoleRepositoryImpl implements RoleRepository {
         LambdaQueryWrapper<RolePO> queryWrapper = new LambdaQueryWrapper<>();
         // 分页参数
         PageDTO<RolePO> rolePOPageDTO = roleMapper.selectPage(new PageDTO<>(pageNo, pageSize), queryWrapper);
-        return RoleConvertMapper.INSTANCE.poPageToDetailPage(rolePOPageDTO);
+        return RoleDBConvertMapper.INSTANCE.poPageToDetailPage(rolePOPageDTO);
     }
 
     @Override
     public Role selectById(Long id) {
         RolePO rolePO = roleMapper.selectById(id);
-        return RoleConvertMapper.INSTANCE.poToDetail(rolePO);
+        return RoleDBConvertMapper.INSTANCE.poToDetail(rolePO);
     }
 
     @Override
     public List<Role> selectBatchIds(List<Long> roleIdList) {
         List<RolePO> rolePOList = roleMapper.selectBatchIds(roleIdList);
-        return RoleConvertMapper.INSTANCE.listPoToDetail(rolePOList);
+        return RoleDBConvertMapper.INSTANCE.listPoToDetail(rolePOList);
     }
 }
