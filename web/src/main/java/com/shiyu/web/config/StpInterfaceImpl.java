@@ -3,6 +3,7 @@ package com.shiyu.web.config;
 import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollUtil;
+import com.shiyu.commons.utils.ShiYuConstants;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class StpInterfaceImpl implements StpInterface {
 
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        String role = (String) StpUtil.getExtra(SaTokenConfigure.JWT_CURRENT_ROLE_KEY);
+        String role = (String) StpUtil.getExtra(ShiYuConstants.JWT_CURRENT_ROLE_KEY);
         return CollUtil.newArrayList(role);
     }
 }

@@ -67,4 +67,9 @@ public class UserRepositoryImpl implements UserRepository {
         UserPO userPO = userMapper.selectOne(queryWrapper);
         return UserDBConvertMapper.INSTANCE.poToDetail(userPO);
     }
+
+    @Override
+    public boolean checkUserName(String username) {
+        return userMapper.selectCount(new LambdaQueryWrapper<UserPO>().eq(UserPO::getUsername, username)) > 0;
+    }
 }

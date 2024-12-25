@@ -2,12 +2,11 @@ package com.shiyu.web.isme.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.captcha.ICaptcha;
-import cn.hutool.core.convert.NumberWithFormat;
 import cn.hutool.core.lang.Pair;
 import com.shiyu.bootstrap.isme.auth.AuthManager;
 import com.shiyu.commons.utils.Result;
+import com.shiyu.commons.utils.ShiYuConstants;
 import com.shiyu.infrastructure.datasource.cache.CaptchaCacheHelper;
-import com.shiyu.web.config.SaTokenConfigure;
 import com.shiyu.bootstrap.isme.request.ChangePasswordRequest;
 import com.shiyu.bootstrap.isme.request.LoginRequest;
 import com.shiyu.bootstrap.isme.request.RegisterUserRequest;
@@ -35,14 +34,13 @@ public class AuthController {
     private final AuthManager authManager;
     private final CaptchaCacheHelper captchaCacheHelper;
 
-    private static final String CAPTCHA_KEY = "captchaKey";
 
     @PostMapping("/login")
     @Operation(summary = "登录")
     public Result<LoginResult> login(@RequestBody final LoginRequest request,
                                      HttpServletRequest httpServletRequest) {
         HttpSession session = httpServletRequest.getSession();
-        String captchaKey = (String) session.getAttribute(CAPTCHA_KEY);
+        String captchaKey = (String) session.getAttribute(ShiYuConstants.CAPTCHA_KEY);
         if (captchaKey != null) {
             request.setCaptchaKey(captchaKey);
         }
@@ -56,16 +54,15 @@ public class AuthController {
     public void captcha(HttpServletRequest request, HttpServletResponse response){
         Pair<String, ICaptcha> captchaPair = captchaCacheHelper.create();
         HttpSession session = request.getSession();
-        session.setAttribute(CAPTCHA_KEY, captchaPair.getKey());
+        session.setAttribute(ShiYuConstants.CAPTCHA_KEY, captchaPair.getKey());
         captchaPair.getValue().write(response.getOutputStream());
     }
 
     @PostMapping("/current-role/switch/{roleCode}")
     @Operation(summary = "切换角色")
     public Result<LoginResult> switchRole(@PathVariable String roleCode) {
-        LoginResult loginResult = new LoginResult();
-        NumberWithFormat userId =
-                (NumberWithFormat) StpUtil.getExtra(SaTokenConfigure.JWT_USER_ID_KEY);
+        Long userId = (Long) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
+        LoginResult loginResult = authManager.switchRole(userId,roleCode);
         return Result.success(loginResult);
     }
 
@@ -80,19 +77,21 @@ public class AuthController {
     @PostMapping("/register")
     @Operation(summary = "注册")
     public Result<Void> register(@RequestBody RegisterUserRequest request) {
+        authManager.register(request);
         return Result.success();
     }
 
     @GetMapping("/refresh/token")
     @Operation(summary = "刷新token")
     public Result<LoginResult> refreshToken() {
-        LoginResult loginResult = new LoginResult();
+        LoginResult loginResult = authManager.refreshToken();
         return Result.success(loginResult);
     }
 
     @PostMapping("/password")
     @Operation(summary = "修改密码")
     public Result<Void> changePassword(@RequestBody ChangePasswordRequest request) {
+        authManager.changePassword(request);
         return Result.success();
     }
 

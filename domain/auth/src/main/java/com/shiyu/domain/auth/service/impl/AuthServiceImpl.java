@@ -45,4 +45,14 @@ public class AuthServiceImpl implements AuthService {
         roleAggregate.setMenuList(menus);
         return roleAggregate;
     }
+
+    @Override
+    public void saveBatchUserRole(Long userId, List<Long> roleIds) {
+        authRepository.saveBatchUserRole(userId, roleIds);
+    }
+
+    @Override
+    public void saveBatchRoleMenu(Long roleId, List<Long> menuIds) {
+        authRepository.saveBatchRoleMenu(roleId, menuIds);
+    }
 }

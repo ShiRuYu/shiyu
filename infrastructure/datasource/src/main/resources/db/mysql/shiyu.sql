@@ -88,9 +88,25 @@ CREATE TABLE IF NOT EXISTS `sy_role_menu` (
   `menu_id` bigint NOT NULL COMMENT '菜单ID',
   `del_status` smallint DEFAULT '1' COMMENT '0：删除  1：正常  ',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色菜单关联';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色菜单关联';
 
--- 正在导出表  shiyu.sy_role_menu 的数据：~0 rows (大约)
+-- 正在导出表  shiyu.sy_role_menu 的数据：~15 rows (大约)
+INSERT INTO `sy_role_menu` (`id`, `create_time`, `update_time`, `role_id`, `menu_id`, `del_status`) VALUES
+	(1, '2024-12-15 21:33:29', '2024-12-15 21:33:29', 1, 1, 1),
+	(2, '2024-12-25 22:24:31', '2024-12-25 22:24:31', 1, 2, 1),
+	(3, '2024-12-25 22:24:40', '2024-12-25 22:24:40', 1, 3, 1),
+	(4, '2024-12-25 22:24:44', '2024-12-25 22:24:44', 1, 4, 1),
+	(5, '2024-12-25 22:24:49', '2024-12-25 22:24:49', 1, 5, 1),
+	(6, '2024-12-25 22:24:56', '2024-12-25 22:24:56', 1, 6, 1),
+	(7, '2024-12-25 22:25:01', '2024-12-25 22:25:01', 1, 7, 1),
+	(8, '2024-12-25 22:25:05', '2024-12-25 22:25:05', 1, 8, 1),
+	(9, '2024-12-25 22:25:11', '2024-12-25 22:25:11', 1, 9, 1),
+	(10, '2024-12-25 22:25:15', '2024-12-25 22:25:27', 1, 10, 1),
+	(11, '2024-12-25 22:25:24', '2024-12-25 22:25:29', 1, 11, 1),
+	(12, '2024-12-25 22:25:34', '2024-12-25 22:25:34', 1, 12, 1),
+	(13, '2024-12-25 22:25:38', '2024-12-25 22:25:38', 1, 13, 1),
+	(14, '2024-12-25 22:25:43', '2024-12-25 22:25:43', 1, 14, 1),
+	(15, '2024-12-25 22:25:48', '2024-12-25 22:25:48', 1, 15, 1);
 
 -- 导出  表 shiyu.sy_user 结构
 CREATE TABLE IF NOT EXISTS `sy_user` (
@@ -115,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `sy_user` (
 
 -- 正在导出表  shiyu.sy_user 的数据：~1 rows (大约)
 INSERT INTO `sy_user` (`id`, `create_time`, `update_time`, `username`, `nick_name`, `avatar`, `phone`, `email`, `birthday`, `addr`, `gender`, `signature`, `password`, `ext_info`, `status`, `del_status`) VALUES
-	(1, '2024-11-16 19:32:12', '2024-11-16 19:32:12', NULL, 'shiyu', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80', '5513126', 'ewaf@qq.com', '2024-11-16 11:32:13', NULL, 1, '', '123456', '', 0, 1);
+	(1, '2024-11-16 19:32:12', '2024-12-15 21:01:52', 'shiyu', 'shiyu', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80', '5513126', 'ewaf@qq.com', '2024-11-16 11:32:13', NULL, 1, '', '123456', '', 0, 1);
 
 -- 导出  表 shiyu.sy_user_role 结构
 CREATE TABLE IF NOT EXISTS `sy_user_role` (
@@ -126,9 +142,11 @@ CREATE TABLE IF NOT EXISTS `sy_user_role` (
   `role_id` bigint NOT NULL COMMENT '角色ID',
   `del_status` smallint DEFAULT '1' COMMENT '0：删除  1：正常  ',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色关联';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色关联';
 
--- 正在导出表  shiyu.sy_user_role 的数据：~0 rows (大约)
+-- 正在导出表  shiyu.sy_user_role 的数据：~1 rows (大约)
+INSERT INTO `sy_user_role` (`id`, `create_time`, `update_time`, `user_id`, `role_id`, `del_status`) VALUES
+	(1, '2024-12-15 21:33:16', '2024-12-15 21:33:16', 1, 1, 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

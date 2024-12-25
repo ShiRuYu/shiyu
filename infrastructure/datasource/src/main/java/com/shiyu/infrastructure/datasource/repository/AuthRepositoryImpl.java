@@ -1,5 +1,6 @@
 package com.shiyu.infrastructure.datasource.repository;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.shiyu.domain.auth.repository.AuthRepository;
 import com.shiyu.infrastructure.datasource.mapper.*;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +24,23 @@ public class AuthRepositoryImpl implements AuthRepository {
         userRolePO.setUserId(userId);
         userRolePO.setRoleId(roleId);
         return userRoleMapper.insert(userRolePO);
+    }
+
+    @Override
+    public int saveBatchUserRole(Long userId, List<Long> roleIdList) {
+        List<UserRolePO> userRolePOList = roleIdList.stream()
+                .filter(Objects::nonNull)
+                .map(roleId -> {
+                    UserRolePO userRolePO = new UserRolePO();
+                    userRolePO.setUserId(userId);
+                    userRolePO.setRoleId(roleId);
+                    return userRolePO;
+                })
+                .toList();
+        if (CollectionUtil.isNotEmpty(userRolePOList)){
+            return userRoleMapper.insertBatchSomeColumn(userRolePOList);
+        }
+        return 0;
     }
 
     @Override
@@ -56,13 +75,29 @@ public class AuthRepositoryImpl implements AuthRepository {
     }
 
 
-
     @Override
     public int saveRoleMenu(Long roleId, Long menuId) {
         RoleMenuPO roleMenuPO = new RoleMenuPO();
         roleMenuPO.setRoleId(roleId);
         roleMenuPO.setMenuId(menuId);
         return roleMenuMapper.insert(roleMenuPO);
+    }
+
+    @Override
+    public int saveBatchRoleMenu(Long roleId, List<Long> menuIdList) {
+        List<RoleMenuPO> roleMenuPOList = menuIdList.stream()
+                .filter(Objects::nonNull)
+                .map(menuId -> {
+                    RoleMenuPO roleMenuPO = new RoleMenuPO();
+                    roleMenuPO.setRoleId(roleId);
+                    roleMenuPO.setMenuId(menuId);
+                    return roleMenuPO;
+                })
+                .toList();
+        if (CollectionUtil.isNotEmpty(roleMenuPOList)){
+            return roleMenuMapper.insertBatchSomeColumn(roleMenuPOList);
+        }
+        return 0;
     }
 
     @Override

@@ -1,14 +1,13 @@
 package com.shiyu.web.isme.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.convert.NumberWithFormat;
 import com.google.common.collect.Lists;
 import com.shiyu.bootstrap.isme.request.*;
 import com.shiyu.commons.utils.Result;
 import com.shiyu.commons.utils.ResultPage;
+import com.shiyu.commons.utils.ShiYuConstants;
 import com.shiyu.commons.utils.exception.BizException;
 import com.shiyu.commons.utils.BizResultCode;
-import com.shiyu.web.config.SaTokenConfigure;
 import com.shiyu.bootstrap.isme.result.UserDetailResult;
 import com.shiyu.bootstrap.isme.result.UserPageResult;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,9 +32,8 @@ public class UserController {
     @Operation(summary = "用户信息")
     public Result<UserDetailResult> detail() {
         UserDetailResult userDetailResult = new UserDetailResult();
-        NumberWithFormat userId =
-                (NumberWithFormat) StpUtil.getExtra(SaTokenConfigure.JWT_USER_ID_KEY);
-        String roleCode = (String) StpUtil.getExtra(SaTokenConfigure.JWT_CURRENT_ROLE_KEY);
+        Long userId = (Long) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
+        String roleCode = (String) StpUtil.getExtra(ShiYuConstants.JWT_CURRENT_ROLE_KEY);
 
         return Result.success(userDetailResult);
     }
@@ -50,8 +48,8 @@ public class UserController {
     @DeleteMapping("{id}")
     @Operation(summary = "根据id删除")
     public Result<Void> remove(@PathVariable Long id) {
-        NumberWithFormat userIdFormat = (NumberWithFormat) StpUtil.getExtra(SaTokenConfigure.JWT_USER_ID_KEY);
-        if (userIdFormat.longValue() == id) {
+        Long userId = (Long) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
+        if (userId.longValue() == id) {
             throw new BizException(BizResultCode.ERR_11006, "非法操作，不能删除自己！");
         }
         return Result.success();
@@ -79,8 +77,8 @@ public class UserController {
     @PatchMapping("/profile/{id}")
     @Operation(summary = "更新资料")
     public Result<Void> updateProfile(@PathVariable Long id, @RequestBody UpdateProfileRequest request) {
-        NumberWithFormat userIdFormat = (NumberWithFormat) StpUtil.getExtra(SaTokenConfigure.JWT_USER_ID_KEY);
-        if (userIdFormat.longValue() != id) {
+        Long userId = (Long) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
+        if (userId.longValue() != id) {
             throw new BizException(BizResultCode.ERR_11004, "越权操作，用户资料只能本人修改！");
         }
         return Result.success();

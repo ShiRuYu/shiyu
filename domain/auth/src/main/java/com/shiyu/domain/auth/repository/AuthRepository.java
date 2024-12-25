@@ -5,6 +5,8 @@ import java.util.List;
 public interface AuthRepository {
     int saveUserRole(Long userId, Long roleId);
 
+    int saveBatchUserRole(Long userId, List<Long> roleIdList);
+
     int deleteUserRole(Long userId, Long roleId);
 
     List<Long> selectUserRoleByUserId(Long userId);
@@ -12,6 +14,8 @@ public interface AuthRepository {
     List<Long> selectUserRoleByRoleId(Long roleId);
 
     int saveRoleMenu(Long roleId, Long menuId);
+
+    int saveBatchRoleMenu(Long roleId, List<Long> menuIdList);
 
     int deleteRoleMenu(Long roleId, Long menuId);
 

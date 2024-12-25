@@ -20,4 +20,6 @@ public interface UserRepository {
     void delete(Long id);
 
     User selectByNameAndPasswd(String username, String password);
+
+    boolean checkUserName(String username);
 }

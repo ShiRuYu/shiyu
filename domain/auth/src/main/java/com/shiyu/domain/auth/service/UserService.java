@@ -19,4 +19,6 @@ public interface UserService {
     void delete(Long id);
 
     User selectByNameAndPasswd(String username, String password);
+
+    boolean checkUserName(String username);
 }

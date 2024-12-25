@@ -6,7 +6,7 @@ import com.google.common.collect.Lists;
 import com.shiyu.bootstrap.isme.request.*;
 import com.shiyu.commons.utils.Result;
 import com.shiyu.commons.utils.ResultPage;
-import com.shiyu.web.config.SaTokenConfigure;
+import com.shiyu.commons.utils.ShiYuConstants;
 import com.shiyu.bootstrap.isme.result.PermissionResult;
 import com.shiyu.bootstrap.isme.result.RolePageResult;
 import com.shiyu.bootstrap.isme.result.RoleResult;
@@ -76,7 +76,7 @@ public class RoleController {
     @GetMapping("/permissions/tree")
     @Operation(summary = "角色的权限树")
     public Result<List<Tree<Long>>> permissionTree() {
-        String roleCode = (String) StpUtil.getExtra(SaTokenConfigure.JWT_CURRENT_ROLE_KEY);
+        String roleCode = (String) StpUtil.getExtra(ShiYuConstants.JWT_CURRENT_ROLE_KEY);
         List<Tree<Long>> treeList = Lists.newArrayList();
         return Result.success(treeList);
 
