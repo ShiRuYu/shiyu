@@ -6,7 +6,6 @@ import com.shiyu.domain.auth.model.Role;
 import com.shiyu.infrastructure.datasource.model.RolePO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -21,8 +20,6 @@ public interface RoleDBConvertMapper {
 
     List<Role> listPoToDetail(List<RolePO> rolePOList);
 
-    @Mappings(
-            @Mapping(source = "records",target = "data")
-    )
+    @Mapping(source = "records",target = "data")
     ResultPage<Role> poPageToDetailPage(PageDTO<RolePO> rolePOPageDTO);
 }

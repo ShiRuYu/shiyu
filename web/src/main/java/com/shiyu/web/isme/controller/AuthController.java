@@ -2,8 +2,9 @@ package com.shiyu.web.isme.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.captcha.ICaptcha;
+import cn.hutool.core.convert.NumberWithFormat;
 import cn.hutool.core.lang.Pair;
-import com.shiyu.bootstrap.isme.auth.AuthManager;
+import com.shiyu.bootstrap.isme.AuthManager;
 import com.shiyu.commons.utils.Result;
 import com.shiyu.commons.utils.ShiYuConstants;
 import com.shiyu.infrastructure.datasource.cache.CaptchaCacheHelper;
@@ -61,8 +62,9 @@ public class AuthController {
     @PostMapping("/current-role/switch/{roleCode}")
     @Operation(summary = "切换角色")
     public Result<LoginResult> switchRole(@PathVariable String roleCode) {
-        Long userId = (Long) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
-        LoginResult loginResult = authManager.switchRole(userId,roleCode);
+        NumberWithFormat userId =
+                (NumberWithFormat) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
+        LoginResult loginResult = authManager.switchRole(userId.longValue(),roleCode);
         return Result.success(loginResult);
     }
 

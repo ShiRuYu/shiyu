@@ -1,7 +1,9 @@
 package com.shiyu.web.isme.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.convert.NumberWithFormat;
 import com.google.common.collect.Lists;
+import com.shiyu.bootstrap.isme.UserManager;
 import com.shiyu.bootstrap.isme.request.*;
 import com.shiyu.commons.utils.Result;
 import com.shiyu.commons.utils.ResultPage;
@@ -27,14 +29,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "用户")
 public class UserController {
+    private final UserManager userManager;
 
     @GetMapping("/detail")
     @Operation(summary = "用户信息")
     public Result<UserDetailResult> detail() {
-        UserDetailResult userDetailResult = new UserDetailResult();
         Long userId = (Long) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
         String roleCode = (String) StpUtil.getExtra(ShiYuConstants.JWT_CURRENT_ROLE_KEY);
-
+        UserDetailResult userDetailResult = userManager.detail(userId, roleCode);
         return Result.success(userDetailResult);
     }
 
@@ -48,7 +50,8 @@ public class UserController {
     @DeleteMapping("{id}")
     @Operation(summary = "根据id删除")
     public Result<Void> remove(@PathVariable Long id) {
-        Long userId = (Long) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
+        NumberWithFormat userId =
+                (NumberWithFormat) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
         if (userId.longValue() == id) {
             throw new BizException(BizResultCode.ERR_11006, "非法操作，不能删除自己！");
         }
@@ -77,7 +80,8 @@ public class UserController {
     @PatchMapping("/profile/{id}")
     @Operation(summary = "更新资料")
     public Result<Void> updateProfile(@PathVariable Long id, @RequestBody UpdateProfileRequest request) {
-        Long userId = (Long) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
+        NumberWithFormat userId =
+                (NumberWithFormat) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
         if (userId.longValue() != id) {
             throw new BizException(BizResultCode.ERR_11004, "越权操作，用户资料只能本人修改！");
         }

@@ -1,9 +1,10 @@
-package com.shiyu.bootstrap.isme.auth;
+package com.shiyu.bootstrap.isme;
 
 import cn.dev33.satoken.stp.SaLoginConfig;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.convert.NumberWithFormat;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import com.shiyu.bootstrap.isme.mapstract.IsmeUserConvertMapper;
@@ -118,8 +119,9 @@ public class AuthManager {
     }
 
     public void changePassword(ChangePasswordRequest request) {
-        Long userId = (Long) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
-        User user = userService.selectById(userId);
+        NumberWithFormat userId =
+                (NumberWithFormat) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
+        User user = userService.selectById(userId.longValue());
         if (!BCrypt.checkpw(request.getOldPassword(), user.getPassword())) {
             throw new BizException(BizResultCode.ERR_10004);
         }

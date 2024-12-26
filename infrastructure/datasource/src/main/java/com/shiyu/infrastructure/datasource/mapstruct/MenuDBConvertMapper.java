@@ -6,7 +6,6 @@ import com.shiyu.domain.auth.model.Menu;
 import com.shiyu.infrastructure.datasource.model.MenuPO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -20,8 +19,7 @@ public interface MenuDBConvertMapper {
     Menu poToDetail(MenuPO menuPO);
 
     List<Menu> listPoToDetail(List<MenuPO> menuPOList);
-    @Mappings(
-            @Mapping(source = "records",target = "data")
-    )
+
+    @Mapping(source = "records",target = "data")
     ResultPage<Menu> poPageToDetailPage(PageDTO<MenuPO> menuPOPageDTO);
 }
