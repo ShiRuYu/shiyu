@@ -2,7 +2,7 @@ package com.shiyu.domain.auth.model;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -14,11 +14,11 @@ public class Menu {
     /**
      * 创建时间
      */
-    private Date createTime;
+    private LocalDateTime createTime;
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
     /**
      * 上级id，根节点：0
      */

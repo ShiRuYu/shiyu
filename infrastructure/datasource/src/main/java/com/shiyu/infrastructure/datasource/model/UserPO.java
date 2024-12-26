@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @TableName("sy_user")
@@ -19,11 +19,11 @@ public class UserPO implements Serializable {
     /**
      * 创建时间
      */
-    private Date createTime;
+    private LocalDateTime createTime;
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
     /**
      * 昵称
      */
@@ -47,7 +47,7 @@ public class UserPO implements Serializable {
     /**
      * 生日
      */
-    private Date birthday;
+    private LocalDateTime birthday;
     /**
      * 地址
      */

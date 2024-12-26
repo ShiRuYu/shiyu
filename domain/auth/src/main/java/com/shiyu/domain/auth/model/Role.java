@@ -2,7 +2,7 @@ package com.shiyu.domain.auth.model;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class Role {
@@ -14,11 +14,11 @@ public class Role {
     /**
      * 创建时间
      */
-    private Date createTime;
+    private LocalDateTime createTime;
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
     /**
      * 角色名
      */

@@ -3,7 +3,7 @@ package com.shiyu.domain.auth.model;
 import lombok.Data;
 import org.apache.commons.collections4.MapUtils;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +16,11 @@ public class UserAggregate {
     /**
      * 创建时间
      */
-    private Date createTime;
+    private LocalDateTime createTime;
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
     /**
      * 昵称
      */
@@ -44,7 +44,7 @@ public class UserAggregate {
     /**
      * 生日
      */
-    private Date birthday;
+    private LocalDateTime birthday;
     /**
      * 地址
      */
