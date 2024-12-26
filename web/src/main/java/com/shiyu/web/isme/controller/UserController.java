@@ -2,7 +2,6 @@ package com.shiyu.web.isme.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.convert.NumberWithFormat;
-import com.google.common.collect.Lists;
 import com.shiyu.bootstrap.isme.UserManager;
 import com.shiyu.bootstrap.isme.request.*;
 import com.shiyu.commons.utils.Result;
@@ -17,8 +16,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 用户Controller
@@ -43,8 +40,8 @@ public class UserController {
     @GetMapping
     @Operation(summary = "获取所有")
     public ResultPage<UserPageResult> findAll(UserPageRequest request) {
-        List<UserPageResult> userPageResultList = Lists.newArrayList();
-        return ResultPage.success(userPageResultList);
+        ResultPage<UserPageResult> userPageResultList = userManager.findAll(request);
+        return userPageResultList.successThis();
     }
 
     @DeleteMapping("{id}")

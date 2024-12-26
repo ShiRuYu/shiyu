@@ -33,6 +33,19 @@ public class ResultPage<T> {
     private boolean success;
 
 
+    public ResultPage<T> successThis() {
+        this.code = BizResultCode.SUC.getCode();
+        this.message = BizResultCode.SUC.getMsg();
+        this.success = true;
+        return this;
+    }
+    public ResultPage<T> fileThis() {
+        this.code = BizResultCode.ERR.getCode();
+        this.message = BizResultCode.ERR.getMsg();
+        this.success = false;
+        return this;
+    }
+
     public static <T> ResultPage<T> success(BizResultCode resultCode) {
         ResultPage<T> result = new ResultPage<>();
         result.setCode(resultCode.getCode());
@@ -40,6 +53,7 @@ public class ResultPage<T> {
         result.setSuccess(true);
         return result;
     }
+
 
     public static <T> ResultPage<T> success(BizResultCode resultCode, Collection<T> data) {
         ResultPage<T> result = new ResultPage<>();

@@ -2,6 +2,7 @@ package com.shiyu.domain.auth.service.impl;
 
 import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.User;
+import com.shiyu.domain.auth.query.UserQueryCondition;
 import com.shiyu.domain.auth.repository.UserRepository;
 import com.shiyu.domain.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultPage<User> selectPage(Integer pageNo, Integer pageSize) {
-        return userRepository.selectPage(pageNo, pageSize);
+    public ResultPage<User> selectPage(UserQueryCondition condition, Integer pageNo, Integer pageSize) {
+        return userRepository.selectPage(condition, pageNo, pageSize);
     }
 
     @Override

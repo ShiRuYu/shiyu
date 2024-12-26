@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.User;
+import com.shiyu.domain.auth.query.UserQueryCondition;
 import com.shiyu.domain.auth.repository.UserRepository;
 import com.shiyu.infrastructure.datasource.mapper.UserMapper;
 import com.shiyu.infrastructure.datasource.mapstruct.UserDBConvertMapper;
@@ -40,9 +41,12 @@ public class UserRepositoryImpl implements UserRepository {
 
 
     @Override
-    public ResultPage<User> selectPage(Integer pageNo, Integer pageSize) {
+    public ResultPage<User> selectPage(UserQueryCondition condition, Integer pageNo, Integer pageSize) {
         // queryWrapper组装查询where条件
         LambdaQueryWrapper<UserPO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(condition.getUsername() != null, UserPO::getUsername, condition.getUsername())
+                .eq(condition.getGender() != null, UserPO::getGender, condition.getGender())
+                .eq(condition.getStatus() != null, UserPO::getStatus, condition.getStatus());
         // 分页参数
         PageDTO<UserPO> userPOPageDTO = userMapper.selectPage(new PageDTO<>(pageNo, pageSize), queryWrapper);
         return UserDBConvertMapper.INSTANCE.poPageToDetailPage(userPOPageDTO);

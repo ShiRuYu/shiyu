@@ -2,7 +2,9 @@ package com.shiyu.bootstrap.isme.mapstract;
 
 import com.shiyu.bootstrap.isme.request.RegisterUserRequest;
 import com.shiyu.bootstrap.isme.result.UserDetailResult;
+import com.shiyu.bootstrap.isme.result.UserPageResult;
 import com.shiyu.commons.utils.ConvertUtil;
+import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.User;
 import com.shiyu.domain.auth.model.UserAggregate;
 import org.mapstruct.Mapper;
@@ -11,9 +13,15 @@ import org.mapstruct.Mappings;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
+
 @Mapper(imports = {ConvertUtil.class})
 public interface IsmeUserConvertMapper {
     IsmeUserConvertMapper INSTANCE = Mappers.getMapper(IsmeUserConvertMapper.class);
+
+    @Mapping(source = "status", target = "enable", qualifiedByName = "intToBoolean")
+    UserPageResult userToUserPageResult(User user);
+
+    ResultPage<UserPageResult> userPageToPageResult(ResultPage<User> userResultPage);
 
     @Mappings({
             @Mapping(source = "enable", target = "status",qualifiedByName = "booleanToInt"),

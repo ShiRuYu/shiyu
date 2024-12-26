@@ -2,15 +2,18 @@ package com.shiyu.bootstrap.isme;
 
 import com.shiyu.bootstrap.isme.mapstract.IsmeRoleConvertMapper;
 import com.shiyu.bootstrap.isme.mapstract.IsmeUserConvertMapper;
-import com.shiyu.bootstrap.isme.result.RoleResult;
+import com.shiyu.bootstrap.isme.request.UserPageRequest;
 import com.shiyu.bootstrap.isme.result.UserDetailResult;
+import com.shiyu.bootstrap.isme.result.UserPageResult;
 import com.shiyu.commons.utils.BizResultCode;
+import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.commons.utils.exception.BizException;
 import com.shiyu.domain.auth.model.Role;
 import com.shiyu.domain.auth.model.User;
 import com.shiyu.domain.auth.model.UserAggregate;
 import com.shiyu.domain.auth.service.AuthService;
 import com.shiyu.domain.auth.service.UserService;
+import com.shiyu.domain.auth.query.UserQueryCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -35,5 +38,15 @@ public class UserManager {
         userDetailResult.setCurrentRole(IsmeRoleConvertMapper.INSTANCE.roleToRoleResult(currentRole));
 
         return userDetailResult;
+    }
+
+    public ResultPage<UserPageResult> findAll(UserPageRequest request) {
+        UserQueryCondition condition = UserQueryCondition.builder()
+                .username(request.getUsername())
+                .gender(request.getGender())
+                .status(request.getEnable() ? 0 : 1)
+                .build();
+        ResultPage<User> userResultPage = userService.selectPage(condition, request.getPageNo(), request.getPageSize());
+        return IsmeUserConvertMapper.INSTANCE.userPageToPageResult(userResultPage);
     }
 }
