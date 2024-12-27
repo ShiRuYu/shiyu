@@ -1,6 +1,7 @@
 package com.shiyu.infrastructure.datasource.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.User;
@@ -20,21 +21,26 @@ public class UserRepositoryImpl implements UserRepository {
     private final UserMapper userMapper;
 
     @Override
-    public User save(User user){
+    public User save(User user) {
         UserPO userPO = UserDBConvertMapper.INSTANCE.detailToPo(user);
         userMapper.insert(userPO);
         return UserDBConvertMapper.INSTANCE.poToDetail(userPO);
     }
 
     @Override
-    public User update(User user){
-        int insert = userMapper.updateById(UserDBConvertMapper.INSTANCE.detailToPo(user));
+    public User update(User user) {
+        UserPO updatePO = UserDBConvertMapper.INSTANCE.detailToPo(user);
+
+        LambdaUpdateWrapper<UserPO> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(UserPO::getId, updatePO.getId());
+        userMapper.update(updatePO, updateWrapper);
+
         UserPO userPO = userMapper.selectById(user.getId());
         return UserDBConvertMapper.INSTANCE.poToDetail(userPO);
     }
 
     @Override
-    public User selectById(Long id){
+    public User selectById(Long id) {
         UserPO userPO = userMapper.selectById(id);
         return UserDBConvertMapper.INSTANCE.poToDetail(userPO);
     }
@@ -64,11 +70,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User selectByNameAndPasswd(String username, String password) {
-        LambdaQueryWrapper<UserPO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserPO::getUsername,username)
-                .eq(UserPO::getPassword,password);
-        UserPO userPO = userMapper.selectOne(queryWrapper);
+    public User selectByUserName(String username) {
+        UserPO userPO = userMapper.selectOne(new LambdaQueryWrapper<UserPO>().eq(UserPO::getUsername, username));
         return UserDBConvertMapper.INSTANCE.poToDetail(userPO);
     }
 
@@ -76,4 +79,5 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean checkUserName(String username) {
         return userMapper.selectCount(new LambdaQueryWrapper<UserPO>().eq(UserPO::getUsername, username)) > 0;
     }
+
 }

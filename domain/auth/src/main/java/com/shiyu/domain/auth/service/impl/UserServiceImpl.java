@@ -46,12 +46,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectByNameAndPasswd(String username, String password) {
-        return userRepository.selectByNameAndPasswd(username, password);
+    public User selectByUserName(String username) {
+        return userRepository.selectByUserName(username);
     }
 
     @Override
     public boolean checkUserName(String username) {
         return userRepository.checkUserName(username);
     }
+
 }

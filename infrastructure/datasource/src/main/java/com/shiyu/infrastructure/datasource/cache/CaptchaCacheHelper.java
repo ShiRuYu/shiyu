@@ -3,12 +3,12 @@ package com.shiyu.infrastructure.datasource.cache;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.ICaptcha;
-import cn.hutool.core.lang.Pair;
-import cn.hutool.core.lang.UUID;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -31,7 +31,7 @@ public class CaptchaCacheHelper extends CacheHelper<String,ICaptcha>{
     @Override
     public Pair<String, ICaptcha> create() {
         CircleCaptcha captcha = getCaptcha();
-        String key = UUID.randomUUID().toString(true);
+        String key = UUID.randomUUID().toString();
         put(key, captcha);
         return Pair.of(key, captcha);
     }

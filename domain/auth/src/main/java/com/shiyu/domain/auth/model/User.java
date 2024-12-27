@@ -1,12 +1,18 @@
 package com.shiyu.domain.auth.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.collections4.MapUtils;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     /**
      * ID
@@ -72,9 +78,5 @@ public class User {
      * 0：删除 1：正常
      */
     private Integer delStatus;
-
-    public Long getCurrentRoleId(){
-        return MapUtils.getLong(extInfo, "currentRoleId", null);
-    }
 
 }

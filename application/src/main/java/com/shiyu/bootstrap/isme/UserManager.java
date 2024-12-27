@@ -1,7 +1,10 @@
 package com.shiyu.bootstrap.isme;
 
+import cn.hutool.crypto.digest.BCrypt;
 import com.shiyu.bootstrap.isme.mapstract.IsmeRoleConvertMapper;
 import com.shiyu.bootstrap.isme.mapstract.IsmeUserConvertMapper;
+import com.shiyu.bootstrap.isme.request.RegisterUserRequest;
+import com.shiyu.bootstrap.isme.request.UpdatePasswordRequest;
 import com.shiyu.bootstrap.isme.request.UserPageRequest;
 import com.shiyu.bootstrap.isme.result.UserDetailResult;
 import com.shiyu.bootstrap.isme.result.UserPageResult;
@@ -15,6 +18,7 @@ import com.shiyu.domain.auth.service.AuthService;
 import com.shiyu.domain.auth.service.UserService;
 import com.shiyu.domain.auth.query.UserQueryCondition;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -40,7 +44,7 @@ public class UserManager {
         return userDetailResult;
     }
 
-    public ResultPage<UserPageResult> findAll(UserPageRequest request) {
+    public ResultPage<UserPageResult> findPage(UserPageRequest request) {
         UserQueryCondition condition = UserQueryCondition.builder()
                 .username(request.getUsername())
                 .gender(request.getGender())
@@ -48,5 +52,27 @@ public class UserManager {
                 .build();
         ResultPage<User> userResultPage = userService.selectPage(condition, request.getPageNo(), request.getPageSize());
         return IsmeUserConvertMapper.INSTANCE.userPageToPageResult(userResultPage);
+    }
+
+    public void remove(Long id) {
+        userService.delete(id);
+    }
+
+    public void resetPassword(Long userId, UpdatePasswordRequest request) {
+        userService.update(User.builder().id(userId).password(request.getPassword()).build());
+    }
+
+    public void create(RegisterUserRequest request) {
+        boolean exists = userService.checkUserName(request.getUsername());
+        if (exists) {
+            throw new BizException(BizResultCode.ERR_10001);
+        }
+        User user = IsmeUserConvertMapper.INSTANCE.registerUserToUser(request);
+        user.setPassword(BCrypt.hashpw(user.getPassword()));
+        User save = userService.save(user);
+        if (CollectionUtils.isNotEmpty(request.getRoleIds())) {
+            authService.saveBatchUserRole(save.getId(), request.getRoleIds());
+        }
+
     }
 }

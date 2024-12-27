@@ -2,6 +2,7 @@ package com.shiyu.commons.utils;
 
 public class ShiYuConstants {
 
+
     /* ------------------------  session 中验证码key值  -------------------------------*/
     public static final String CAPTCHA_KEY = "captchaKey";
 

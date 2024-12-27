@@ -1,6 +1,9 @@
 package com.shiyu.infrastructure.datasource.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.domain.auth.model.Role;
@@ -27,7 +30,12 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public Role update(Role role) {
-        roleMapper.updateById(RoleDBConvertMapper.INSTANCE.detailToPo(role));
+        RolePO updatePO = RoleDBConvertMapper.INSTANCE.detailToPo(role);
+
+        LambdaUpdateWrapper<RolePO> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(RolePO::getId, updatePO.getId());
+        roleMapper.update(updatePO, updateWrapper);
+
         RolePO rolePO = roleMapper.selectById(role.getId());
         return RoleDBConvertMapper.INSTANCE.poToDetail(rolePO);
     }
@@ -38,9 +46,11 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
     @Override
-    public ResultPage<Role> selectPage(Integer pageNo, Integer pageSize) {
+    public ResultPage<Role> selectPage(String name, Integer status, Integer pageNo, Integer pageSize) {
         // queryWrapper组装查询where条件
         LambdaQueryWrapper<RolePO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(RolePO::getName, name);
+        queryWrapper.eq(RolePO::getStatus, status);
         // 分页参数
         PageDTO<RolePO> rolePOPageDTO = roleMapper.selectPage(new PageDTO<>(pageNo, pageSize), queryWrapper);
         return RoleDBConvertMapper.INSTANCE.poPageToDetailPage(rolePOPageDTO);
@@ -56,5 +66,24 @@ public class RoleRepositoryImpl implements RoleRepository {
     public List<Role> selectBatchIds(List<Long> roleIdList) {
         List<RolePO> rolePOList = roleMapper.selectBatchIds(roleIdList);
         return RoleDBConvertMapper.INSTANCE.listPoToDetail(rolePOList);
+    }
+
+    @Override
+    public List<Role> selectAll(Integer status) {
+        QueryWrapper<RolePO> wrapper = Wrappers.query();
+        wrapper.eq("status", status);
+        List<RolePO> rolePOList = roleMapper.selectList(wrapper);
+        return RoleDBConvertMapper.INSTANCE.listPoToDetail(rolePOList);
+    }
+
+    @Override
+    public Role selectByCode(String code) {
+        RolePO rolePO = roleMapper.selectOne(new LambdaQueryWrapper<RolePO>().eq(RolePO::getCode, code));
+        return RoleDBConvertMapper.INSTANCE.poToDetail(rolePO);
+    }
+
+    @Override
+    public Boolean checkCode(String code) {
+        return roleMapper.exists(new LambdaQueryWrapper<RolePO>().eq(RolePO::getCode, code));
     }
 }

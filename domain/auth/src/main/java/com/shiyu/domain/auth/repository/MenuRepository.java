@@ -18,4 +18,6 @@ public interface MenuRepository {
     Menu selectById(Long id);
 
     List<Menu> selectBatchIds(List<Long> menuIdList);
+
+    List<Menu> selectAll();
 }

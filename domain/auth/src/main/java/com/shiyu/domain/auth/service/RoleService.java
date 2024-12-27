@@ -12,9 +12,15 @@ public interface RoleService {
 
     void delete(Long id);
 
-    ResultPage<Role> selectPage(Integer pageNo, Integer pageSize);
+    ResultPage<Role> selectPage(String name, Integer status, Integer pageNo, Integer pageSize);
 
     Role selectById(Long id);
 
     List<Role> selectBatchIds(List<Long> roleIdList);
+
+    List<Role> selectAll(Integer status);
+
+    Role selectByCode(String code);
+
+    Boolean checkCode(String code);
 }

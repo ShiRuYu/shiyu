@@ -1,11 +1,17 @@
 package com.shiyu.domain.auth.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Menu {
     /**
      * ID
@@ -90,7 +96,12 @@ public class Menu {
     private Integer sort;
 
     /**
-     * 0：显示 1:隐藏
+     * 是否展示在页面菜单 0：显示 1:隐藏
+     */
+    private Integer show;
+
+    /**
+     * 0：可用 1:不可用
      */
     private Integer status;
 

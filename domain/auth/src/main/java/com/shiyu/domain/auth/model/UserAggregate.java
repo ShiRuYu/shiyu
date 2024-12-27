@@ -1,13 +1,20 @@
 package com.shiyu.domain.auth.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserAggregate {
     /**
      * ID
@@ -80,9 +87,11 @@ public class UserAggregate {
     private List<Role> roleList;
 
     public Role getCurrentRole(){
-        Long currentRoleId = MapUtils.getLong(extInfo, "currentRoleId", null);
-        return roleList.stream().filter(role -> role.getId().equals(currentRoleId)).findFirst().orElse(null);
-
+        String currentRoleCode = MapUtils.getString(extInfo, "currentRoleCode", null);
+        if (StringUtils.isNotBlank(currentRoleCode)){
+            roleList.stream().filter(role -> role.getCode().equals(currentRoleCode)).findFirst().orElse(null);
+        }
+        return roleList.stream().findFirst().orElse(null);
     }
 
 }

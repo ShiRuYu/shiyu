@@ -1,12 +1,12 @@
 package com.shiyu.infrastructure.datasource.repository;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.shiyu.domain.auth.repository.AuthRepository;
 import com.shiyu.infrastructure.datasource.mapper.*;
 import com.shiyu.infrastructure.datasource.model.RoleMenuPO;
 import com.shiyu.infrastructure.datasource.model.UserRolePO;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class AuthRepositoryImpl implements AuthRepository {
                     return userRolePO;
                 })
                 .toList();
-        if (CollectionUtil.isNotEmpty(userRolePOList)){
+        if (CollectionUtils.isNotEmpty(userRolePOList)){
             return userRoleMapper.insertBatchSomeColumn(userRolePOList);
         }
         return 0;
@@ -50,6 +50,30 @@ public class AuthRepositoryImpl implements AuthRepository {
                 .eq(UserRolePO::getUserId, userId)
                 .eq(UserRolePO::getRoleId, roleId);
         return userRoleMapper.delete(queryWrapper);
+    }
+
+    @Override
+    public void removeBatchUserRole(Long roleId, List<Long> userIds) {
+        LambdaQueryWrapper<UserRolePO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserRolePO::getRoleId, roleId);
+        queryWrapper.in(UserRolePO::getUserId, userIds);
+        userRoleMapper.delete(queryWrapper);
+    }
+
+    @Override
+    public void saveBatchRoleUser(Long roleId, List<Long> userIds) {
+        List<UserRolePO> userRolePOList = userIds.stream()
+                .filter(Objects::nonNull)
+                .map(userId -> {
+                    UserRolePO userRolePO = new UserRolePO();
+                    userRolePO.setUserId(userId);
+                    userRolePO.setRoleId(roleId);
+                    return userRolePO;
+                })
+                .toList();
+        if (CollectionUtils.isNotEmpty(userRolePOList)){
+            userRoleMapper.insertBatchSomeColumn(userRolePOList);
+        }
     }
 
     @Override
@@ -94,7 +118,7 @@ public class AuthRepositoryImpl implements AuthRepository {
                     return roleMenuPO;
                 })
                 .toList();
-        if (CollectionUtil.isNotEmpty(roleMenuPOList)){
+        if (CollectionUtils.isNotEmpty(roleMenuPOList)){
             return roleMenuMapper.insertBatchSomeColumn(roleMenuPOList);
         }
         return 0;
@@ -109,6 +133,13 @@ public class AuthRepositoryImpl implements AuthRepository {
         return roleMenuMapper.delete(queryWrapper);
     }
 
+    @Override
+    public void removeBatchRoleMenu(Long roleId, List<Long> menuIds) {
+        LambdaQueryWrapper<RoleMenuPO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(RoleMenuPO::getRoleId, roleId);
+        queryWrapper.in(RoleMenuPO::getMenuId, menuIds);
+        roleMenuMapper.delete(queryWrapper);
+    }
 
     @Override
     public List<Long> selectRoleMenuByRoleId(Long roleId) {
@@ -131,6 +162,7 @@ public class AuthRepositoryImpl implements AuthRepository {
                 .map(RoleMenuPO::getRoleId)
                 .toList();
     }
+
 
 
 }

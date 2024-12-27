@@ -47,8 +47,28 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public void removeBatchUserRole(Long roleId, List<Long> userIds) {
+        authRepository.removeBatchUserRole(roleId, userIds);
+    }
+
+    @Override
+    public void removeBatchRoleMenu(Long roleId, List<Long> menuIds) {
+        authRepository.removeBatchRoleMenu(roleId, menuIds);
+    }
+
+    @Override
+    public List<Menu> selectMenuByRoleId(Long roleId) {
+        return menuRepository.selectBatchIds(authRepository.selectRoleMenuByRoleId(roleId));
+    }
+
+    @Override
     public void saveBatchUserRole(Long userId, List<Long> roleIds) {
         authRepository.saveBatchUserRole(userId, roleIds);
+    }
+
+    @Override
+    public void saveBatchRoleUser(Long roleId, List<Long> userIds) {
+        authRepository.saveBatchRoleUser(roleId, userIds);
     }
 
     @Override

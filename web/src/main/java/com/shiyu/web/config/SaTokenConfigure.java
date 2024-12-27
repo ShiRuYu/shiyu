@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * SaToken的配置类
  */
-@Configuration
+//@Configuration
 public class SaTokenConfigure implements WebMvcConfigurer {
 
     @Bean

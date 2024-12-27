@@ -3,7 +3,6 @@ package com.shiyu.web.isme.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.captcha.ICaptcha;
 import cn.hutool.core.convert.NumberWithFormat;
-import cn.hutool.core.lang.Pair;
 import com.shiyu.bootstrap.isme.AuthManager;
 import com.shiyu.commons.utils.Result;
 import com.shiyu.commons.utils.ShiYuConstants;
@@ -20,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.web.bind.annotation.*;
 
 /**

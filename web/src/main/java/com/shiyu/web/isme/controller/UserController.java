@@ -31,16 +31,17 @@ public class UserController {
     @GetMapping("/detail")
     @Operation(summary = "用户信息")
     public Result<UserDetailResult> detail() {
-        Long userId = (Long) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
+        NumberWithFormat userId =
+                (NumberWithFormat) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
         String roleCode = (String) StpUtil.getExtra(ShiYuConstants.JWT_CURRENT_ROLE_KEY);
-        UserDetailResult userDetailResult = userManager.detail(userId, roleCode);
+        UserDetailResult userDetailResult = userManager.detail(userId.longValue(), roleCode);
         return Result.success(userDetailResult);
     }
 
     @GetMapping
     @Operation(summary = "获取所有")
-    public ResultPage<UserPageResult> findAll(UserPageRequest request) {
-        ResultPage<UserPageResult> userPageResultList = userManager.findAll(request);
+    public ResultPage<UserPageResult> findPage(UserPageRequest request) {
+        ResultPage<UserPageResult> userPageResultList = userManager.findPage(request);
         return userPageResultList.successThis();
     }
 
@@ -52,6 +53,7 @@ public class UserController {
         if (userId.longValue() == id) {
             throw new BizException(BizResultCode.ERR_11006, "非法操作，不能删除自己！");
         }
+        userManager.remove(id);
         return Result.success();
     }
 
@@ -64,18 +66,20 @@ public class UserController {
     @PatchMapping("password/reset/{userId}")
     @Operation(summary = "重置密码")
     public Result<Void> resetPassword(@PathVariable Long userId, @RequestBody @Validated UpdatePasswordRequest request) {
-
+        userManager.resetPassword(userId, request);
         return Result.success();
     }
 
     @PostMapping
     @Operation(summary = "新增用户")
     public Result<Void> create(@RequestBody @Validated RegisterUserRequest request) {
+        userManager.create(request);
         return Result.success();
     }
 
     @PatchMapping("/profile/{id}")
     @Operation(summary = "更新资料")
+    //todo 待实现
     public Result<Void> updateProfile(@PathVariable Long id, @RequestBody UpdateProfileRequest request) {
         NumberWithFormat userId =
                 (NumberWithFormat) StpUtil.getExtra(ShiYuConstants.JWT_USER_ID_KEY);
@@ -87,16 +91,19 @@ public class UserController {
 
     @GetMapping("/{username}")
     @Operation(summary = "根据用户名获取")
+    //todo 待实现
     public void findByUsername(@PathVariable String username) {
     }
 
     @GetMapping("/profile/{userId}")
     @Operation(summary = "查询用户的profile")
+    //todo 待实现
     public void getUserProfile(@PathVariable Long userId) {
     }
 
     @PostMapping("/roles/add/{userId}")
     @Operation(summary = "添加角色")
+    //todo 待实现
     public Result<Void> addRoles(@PathVariable Long userId, @RequestBody @Validated AddUserRolesRequest request) {
         return Result.success();
     }

@@ -30,8 +30,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public ResultPage<Role> selectPage(Integer pageNo, Integer pageSize) {
-        return roleRepository.selectPage(pageNo, pageSize);
+    public ResultPage<Role> selectPage(String name, Integer status, Integer pageNo, Integer pageSize) {
+        return roleRepository.selectPage(name, status, pageNo, pageSize);
     }
 
     @Override
@@ -42,5 +42,20 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> selectBatchIds(List<Long> roleIdList) {
         return roleRepository.selectBatchIds(roleIdList);
+    }
+
+    @Override
+    public List<Role> selectAll(Integer status) {
+        return roleRepository.selectAll(status);
+    }
+
+    @Override
+    public Role selectByCode(String code) {
+        return roleRepository.selectByCode(code);
+    }
+
+    @Override
+    public Boolean checkCode(String code) {
+        return roleRepository.checkCode(code);
     }
 }

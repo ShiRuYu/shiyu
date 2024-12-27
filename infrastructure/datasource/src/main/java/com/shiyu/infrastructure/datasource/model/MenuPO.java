@@ -91,7 +91,12 @@ public class MenuPO implements Serializable {
     private Integer sort;
 
     /**
-     * 0：显示 1:隐藏
+     * 是否展示在页面菜单 0：显示 1:隐藏
+     */
+    private Integer show;
+
+    /**
+     * 0：可用 1:不可用
      */
     private Integer status;
     

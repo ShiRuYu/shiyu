@@ -3,9 +3,7 @@ package com.shiyu.bootstrap.isme;
 import cn.dev33.satoken.stp.SaLoginConfig;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.NumberWithFormat;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import com.shiyu.bootstrap.isme.mapstract.IsmeUserConvertMapper;
 import com.shiyu.bootstrap.isme.request.ChangePasswordRequest;
@@ -23,6 +21,8 @@ import com.shiyu.domain.auth.service.RoleService;
 import com.shiyu.domain.auth.service.UserService;
 import com.shiyu.infrastructure.datasource.cache.CaptchaCacheHelper;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -36,12 +36,12 @@ public class AuthManager {
     private final RoleService roleService;
 
     public LoginResult login(LoginRequest request) {
-        User user = userService.selectByNameAndPasswd(request.getUsername(), request.getPassword());
+        User user = userService.selectByUserName(request.getUsername());
         if (user == null) {
             throw new BizException(BizResultCode.ERR_10002);
         }
         //校验验证码
-        if (StrUtil.isBlank(request.getCaptchaKey())
+        if (StringUtils.isBlank(request.getCaptchaKey())
                 || !captchaCacheHelper.verify(request.getCaptchaKey(), request.getCaptcha())) {
             throw new BizException(BizResultCode.ERR_10003);
         }
@@ -93,7 +93,7 @@ public class AuthManager {
         User user = IsmeUserConvertMapper.INSTANCE.registerUserToUser(request);
         user.setPassword(BCrypt.hashpw(user.getPassword()));
         User save = userService.save(user);
-        if (CollUtil.isNotEmpty(request.getRoleIds())) {
+        if (CollectionUtils.isNotEmpty(request.getRoleIds())) {
             authService.saveBatchUserRole(save.getId(), request.getRoleIds());
         }
 

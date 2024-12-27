@@ -19,7 +19,13 @@ public interface AuthRepository {
 
     int deleteRoleMenu(Long roleId, Long menuId);
 
+    void removeBatchRoleMenu(Long roleId, List<Long> menuIds);
+
     List<Long> selectRoleMenuByRoleId(Long roleId);
 
     List<Long> selectRoleMenuByMenuId(Long menuId);
+
+    void removeBatchUserRole(Long roleId, List<Long> userIds);
+
+    void saveBatchRoleUser(Long roleId, List<Long> userIds);
 }

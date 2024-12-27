@@ -43,4 +43,9 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> selectBatchIds(List<Long> menuIdList) {
         return menuRepository.selectBatchIds(menuIdList);
     }
+
+    @Override
+    public List<Menu> selectAll() {
+        return menuRepository.selectAll();
+    }
 }

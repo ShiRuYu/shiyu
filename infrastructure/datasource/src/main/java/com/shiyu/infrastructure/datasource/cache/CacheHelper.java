@@ -1,7 +1,7 @@
 package com.shiyu.infrastructure.datasource.cache;
 
-import cn.hutool.core.lang.Pair;
 import com.github.benmanes.caffeine.cache.Cache;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.InitializingBean;
 
 public abstract class CacheHelper<K, V> implements InitializingBean {
