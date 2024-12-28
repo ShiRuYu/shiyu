@@ -2,14 +2,14 @@ package com.shiyu.web.isme.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.tree.Tree;
-import com.google.common.collect.Lists;
-import com.shiyu.bootstrap.isme.UserManager;
 import com.shiyu.bootstrap.isme.request.*;
-import com.shiyu.bootstrap.isme.result.RoleManager;
-import com.shiyu.commons.utils.*;
 import com.shiyu.bootstrap.isme.result.PermissionResult;
+import com.shiyu.bootstrap.isme.result.RoleManager;
 import com.shiyu.bootstrap.isme.result.RolePageResult;
 import com.shiyu.bootstrap.isme.result.RoleResult;
+import com.shiyu.commons.utils.Result;
+import com.shiyu.commons.utils.ResultPage;
+import com.shiyu.commons.utils.ShiYuConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -82,8 +82,8 @@ public class RoleController {
     @GetMapping("/permissions/tree")
     @Operation(summary = "角色的权限树,TOKEN中获取CODE")
     public Result<List<Tree<Long>>> permissionTree() {
-        //String roleCode = (String) StpUtil.getExtra(ShiYuConstants.JWT_CURRENT_ROLE_KEY);
-        List<Tree<Long>> treeList = roleManager.findRoleMenuTree(RoleEnum.SUPER_ADMIN.getCode());
+        String roleCode = (String) StpUtil.getExtra(ShiYuConstants.JWT_CURRENT_ROLE_KEY);
+        List<Tree<Long>> treeList = roleManager.findRoleMenuTree(roleCode);
         return Result.success(treeList);
 
     }

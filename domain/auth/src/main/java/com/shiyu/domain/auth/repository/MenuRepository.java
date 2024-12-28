@@ -20,4 +20,12 @@ public interface MenuRepository {
     List<Menu> selectBatchIds(List<Long> menuIdList);
 
     List<Menu> selectAll();
+
+    List<Menu> selectByType(String type);
+
+    void insertBatchSomeColumn(List<Menu> menuList);
+
+    List<Menu> selectByTypeAndPid(Long parentId, String type);
+
+    Boolean checkPath(String path);
 }

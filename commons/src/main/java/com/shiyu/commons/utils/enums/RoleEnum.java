@@ -1,4 +1,4 @@
-package com.shiyu.commons.utils;
+package com.shiyu.commons.utils.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

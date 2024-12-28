@@ -41,7 +41,7 @@
          内容剪切到存档文件中，如下配置，会新建存档路径 logs/history/error-2023-03-26-1.log -->
         <!--以下只保存debug信息-->
         <RollingFile name="fileDebug" fileName="${logDir}/debug.log"
-                     filePattern="${historyLogDir}/debug-%d{yyyy-MM-dd}-%i.log">
+                     filePattern="${historyLogDir}/shiyu-debug-%d{yyyy-MM-dd}-%i.log">
             <filters>
                 <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL" />
                 <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
@@ -57,7 +57,7 @@
 
         <!--以下只保存info信息-->
         <RollingFile name="fileInfo" fileName="${logDir}/info.log"
-                     filePattern="${historyLogDir}/info-%d{yyyy-MM-dd}-%i.log">
+                     filePattern="${historyLogDir}/shiyu-info-%d{yyyy-MM-dd}-%i.log">
             <filters>
                 <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL" />
                 <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
@@ -72,7 +72,7 @@
 
         <!--以下只保存warn信息-->
         <RollingFile name="fileWarn" fileName="${logDir}/warn.log"
-                     filePattern="${historyLogDir}/warn-%d{yyyy-MM-dd}-%i.log">
+                     filePattern="${historyLogDir}/shiyu-warn-%d{yyyy-MM-dd}-%i.log">
             <filters>
                 <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
                 <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY" />
@@ -87,7 +87,7 @@
 
         <!--以下只保存error信息-->
         <RollingFile name="fileError" fileName="${logDir}/error.log"
-                     filePattern="${historyLogDir}/error-%d{yyyy-MM-dd}-%i.log">
+                     filePattern="${historyLogDir}/shiyu-error-%d{yyyy-MM-dd}-%i.log">
             <filters>
                 <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
             </filters>
@@ -101,7 +101,7 @@
 
         <!--以下保存api请求信息-->
         <RollingFile name="webInfo" fileName="${logDir}/web.log"
-                     filePattern="${historyLogDir}/web-%d{yyyy-MM-dd}-%i.log">
+                     filePattern="${historyLogDir}/shiyu-web-%d{yyyy-MM-dd}-%i.log">
             <filters>
                 <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
             </filters>
@@ -120,17 +120,7 @@
     2、任何一个类只会和一个logger对应，要么是定义的logger，要么是root，判断的关键在于找到这个logger，然后判断这个logger的appender和level。
     3、appender-ref 用于引用上面定义好的 appender 日志追加器，只有引用了，上面的 appender 才能生效. -->
     <loggers>
-        <!--过滤掉 spring 和 mybatis 的一些无用的 DEBUG 信息;也可以单独指定自己的某个包-->
-        <!--以下包中ERROR级别以上日志在root中将被记录-->
-        <!--<logger name="org.springframework" level="ERROR"></logger>
-        <logger name="org.mybatis" level="ERROR"></logger>
-        <logger name="org.hibernate" level="ERROR"></logger>
-        <logger name="org.apache" level="ERROR"></logger>
-        <logger name="com.baomidou" level="ERROR"></logger>
-        <logger name="com.zaxxer" level="ERROR"></logger>
-        <logger name="springfox.documentation" level="ERROR"></logger>-->
-        <!--com.shiyu包中的DEBUG以上信息在以下的appender中输出，additivity所有日志还要向控制台和allLog中输出-->
-        <logger name="com.shiyu" level="DEBUG" additivity="true">
+        <logger name="COMMON_LOGGER" level="DEBUG" additivity="true">
             <appender-ref ref="fileDebug" />
             <appender-ref ref="fileInfo" />
             <appender-ref ref="fileWarn" />
@@ -144,6 +134,24 @@
             <appender-ref ref="fileError" />
             <appender-ref ref="webInfo" />
         </logger>
+
+        <!--过滤掉 spring 和 mybatis 的一些无用的 DEBUG 信息;也可以单独指定自己的某个包-->
+        <!--以下包中ERROR级别以上日志在root中将被记录-->
+        <!--<logger name="org.springframework" level="ERROR"></logger>
+        <logger name="org.mybatis" level="ERROR"></logger>
+        <logger name="org.hibernate" level="ERROR"></logger>
+        <logger name="org.apache" level="ERROR"></logger>
+        <logger name="com.baomidou" level="ERROR"></logger>
+        <logger name="com.zaxxer" level="ERROR"></logger>
+        <logger name="springfox.documentation" level="ERROR"></logger>-->
+
+        <!--com.shiyu包中的DEBUG以上信息在以下的appender中输出，additivity所有日志还要向控制台和allLog中输出-->
+        <!--<logger name="com.shiyu" level="DEBUG" additivity="true">
+            <appender-ref ref="fileDebug" />
+            <appender-ref ref="fileInfo" />
+            <appender-ref ref="fileWarn" />
+            <appender-ref ref="fileError" />
+        </logger>-->
 
         <root level="INFO">
             <appender-ref ref="Console" />

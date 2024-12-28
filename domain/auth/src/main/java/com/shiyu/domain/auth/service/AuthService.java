@@ -1,6 +1,7 @@
 package com.shiyu.domain.auth.service;
 
 import com.shiyu.domain.auth.model.Menu;
+import com.shiyu.domain.auth.model.Role;
 import com.shiyu.domain.auth.model.RoleAggregate;
 import com.shiyu.domain.auth.model.UserAggregate;
 
@@ -23,4 +24,6 @@ public interface AuthService {
     void removeBatchRoleMenu(Long roleId, List<Long> menuIds);
 
     List<Menu> selectMenuByRoleId(Long roleId);
+
+    List<Role> selectRoleByUserId(Long userId);
 }

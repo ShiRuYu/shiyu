@@ -14,12 +14,14 @@ import java.util.List;
 public interface MenuDBConvertMapper {
     MenuDBConvertMapper INSTANCE = Mappers.getMapper(MenuDBConvertMapper.class);
 
-    MenuPO detailToPo(Menu menu);
+    MenuPO menuToPO(Menu menu);
 
-    Menu poToDetail(MenuPO menuPO);
+    List<MenuPO> menuListToPoList(List<Menu> menu);
 
-    List<Menu> listPoToDetail(List<MenuPO> menuPOList);
+    Menu poToMenu(MenuPO menuPO);
+
+    List<Menu> listPoToMenu(List<MenuPO> menuPOList);
 
     @Mapping(source = "records",target = "data")
-    ResultPage<Menu> poPageToDetailPage(PageDTO<MenuPO> menuPOPageDTO);
+    ResultPage<Menu> poPageToMenuPage(PageDTO<MenuPO> menuPOPageDTO);
 }

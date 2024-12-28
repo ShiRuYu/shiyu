@@ -9,6 +9,7 @@ import com.shiyu.bootstrap.isme.request.UserPageRequest;
 import com.shiyu.bootstrap.isme.result.UserDetailResult;
 import com.shiyu.bootstrap.isme.result.UserPageResult;
 import com.shiyu.commons.utils.BizResultCode;
+import com.shiyu.commons.utils.ConvertUtil;
 import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.commons.utils.exception.BizException;
 import com.shiyu.domain.auth.model.Role;
@@ -48,10 +49,17 @@ public class UserManager {
         UserQueryCondition condition = UserQueryCondition.builder()
                 .username(request.getUsername())
                 .gender(request.getGender())
-                .status(request.getEnable() ? 0 : 1)
+                .status(ConvertUtil.booleanToInt(request.getEnable()))
                 .build();
         ResultPage<User> userResultPage = userService.selectPage(condition, request.getPageNo(), request.getPageSize());
-        return IsmeUserConvertMapper.INSTANCE.userPageToPageResult(userResultPage);
+        ResultPage<UserPageResult> resultPage = IsmeUserConvertMapper.INSTANCE.userPageToPageResult(userResultPage);
+        //设置角色
+        List<UserPageResult> list = resultPage.getData().stream().peek(userResult -> {
+            List<Role> roles = authService.selectRoleByUserId(userResult.getId());
+            userResult.setRoles(IsmeRoleConvertMapper.INSTANCE.roleListToRoleResultList(roles));
+        }).toList();
+        resultPage.setData(list);
+        return resultPage;
     }
 
     public void remove(Long id) {

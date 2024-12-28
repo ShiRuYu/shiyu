@@ -12,7 +12,7 @@ import java.util.List;
  * 鉴权
  *
  */
-//@Component
+@Component
 public class StpInterfaceImpl implements StpInterface {
 
     @Override

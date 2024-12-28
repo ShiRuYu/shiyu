@@ -1,6 +1,7 @@
 package com.shiyu.domain.auth.service.impl;
 
 import com.shiyu.commons.utils.ResultPage;
+import com.shiyu.commons.utils.enums.MenuTypeEnum;
 import com.shiyu.domain.auth.model.Menu;
 import com.shiyu.domain.auth.repository.MenuRepository;
 import com.shiyu.domain.auth.service.MenuService;
@@ -47,5 +48,25 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> selectAll() {
         return menuRepository.selectAll();
+    }
+
+    @Override
+    public List<Menu> selectByType(String type) {
+        return menuRepository.selectByType(type);
+    }
+
+    @Override
+    public void insertBatchSomeColumn(List<Menu> menuList) {
+        menuRepository.insertBatchSomeColumn(menuList);
+    }
+
+    @Override
+    public List<Menu> selectByTypeAndPid(Long parentId, String type) {
+        return menuRepository.selectByTypeAndPid(parentId,type);
+    }
+
+    @Override
+    public Boolean checkPath(String path) {
+        return menuRepository.checkPath(path);
     }
 }

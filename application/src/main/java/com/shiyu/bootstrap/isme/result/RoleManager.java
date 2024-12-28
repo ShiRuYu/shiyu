@@ -1,16 +1,14 @@
 package com.shiyu.bootstrap.isme.result;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.shiyu.bootstrap.isme.util.IsmeUtil;
 import com.shiyu.bootstrap.isme.mapstract.IsmeMenuConvertMapper;
 import com.shiyu.bootstrap.isme.mapstract.IsmeRoleConvertMapper;
 import com.shiyu.bootstrap.isme.request.*;
 import com.shiyu.commons.utils.ConvertUtil;
 import com.shiyu.commons.utils.ResultPage;
-import com.shiyu.commons.utils.RoleEnum;
+import com.shiyu.commons.utils.enums.RoleEnum;
 import com.shiyu.commons.utils.exception.BadRequestException;
 import com.shiyu.domain.auth.model.Menu;
 import com.shiyu.domain.auth.model.Role;
@@ -48,7 +46,7 @@ public class RoleManager {
         if (role == null) {
             throw new BadRequestException("角色不存在或者已删除");
         }
-        if (RoleEnum.getRoleCodes().contains(role.getCode())) {
+        if (StringUtils.equals(RoleEnum.SUPER_ADMIN.getCode(), role.getCode())) {
             throw new BadRequestException("不允许修改超级管理员");
         }
         if (StringUtils.isNotBlank(request.getName())) {
@@ -56,6 +54,9 @@ public class RoleManager {
         }
         if (ObjectUtil.isNotNull(request.getEnable())) {
             role.setStatus(ConvertUtil.booleanToInt(request.getEnable()));
+        }
+        if (CollectionUtils.isNotEmpty(request.getPermissionIds())){
+            authService.saveBatchRoleMenu(id, request.getPermissionIds());
         }
         roleService.update(role);
     }
@@ -90,19 +91,10 @@ public class RoleManager {
         List<Menu> menuList =
                 RoleEnum.SUPER_ADMIN.getCode().equals(roleCode) ? menuService.selectAll()
                         : authService.selectMenuByRoleId(role.getId());
-        if (CollectionUtils.isNotEmpty(menuList)) {
-            List<TreeNode<Long>> nodes = menuList.stream().map(menu -> {
-                TreeNode<Long> treeNode = new TreeNode<>();
-                treeNode.setId(menu.getId());
-                treeNode.setParentId(menu.getParentId());
-                treeNode.setWeight(menu.getSort());
-                treeNode.setName(menu.getName());
-                treeNode.setExtra(BeanUtil.beanToMap(menu));
-                return treeNode;
-            }).toList();
-            return TreeUtil.build(nodes, 0L);
-        }
-        return null;
+
+        List<PermissionResult> permissionResults = IsmeMenuConvertMapper.INSTANCE.menuListToPermissionResultList(menuList);
+
+        return IsmeUtil.buildPermissionTree(permissionResults);
     }
 
     public List<PermissionResult> findRoleMenu(Long id) {

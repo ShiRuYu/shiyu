@@ -62,6 +62,11 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public List<Role> selectRoleByUserId(Long userId) {
+        return roleRepository.selectBatchIds(authRepository.selectUserRoleByUserId(userId));
+    }
+
+    @Override
     public void saveBatchUserRole(Long userId, List<Long> roleIds) {
         authRepository.saveBatchUserRole(userId, roleIds);
     }

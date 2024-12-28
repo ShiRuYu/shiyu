@@ -21,21 +21,21 @@ public class MenuRepositoryImpl implements MenuRepository {
 
     @Override
     public Menu save(Menu menu) {
-        menuMapper.insert(MenuDBConvertMapper.INSTANCE.detailToPo(menu));
+        menuMapper.insert(MenuDBConvertMapper.INSTANCE.menuToPO(menu));
         MenuPO menuPO = menuMapper.selectById(menu.getId());
-        return MenuDBConvertMapper.INSTANCE.poToDetail(menuPO);
+        return MenuDBConvertMapper.INSTANCE.poToMenu(menuPO);
     }
 
     @Override
     public Menu update(Menu menu) {
-        MenuPO updatePO = MenuDBConvertMapper.INSTANCE.detailToPo(menu);
+        MenuPO updatePO = MenuDBConvertMapper.INSTANCE.menuToPO(menu);
 
         LambdaUpdateWrapper<MenuPO> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper.eq(MenuPO::getId, updatePO.getId());
         menuMapper.update(updatePO, updateWrapper);
 
         MenuPO menuPO = menuMapper.selectById(menu.getId());
-        return MenuDBConvertMapper.INSTANCE.poToDetail(menuPO);
+        return MenuDBConvertMapper.INSTANCE.poToMenu(menuPO);
     }
 
     @Override
@@ -50,24 +50,51 @@ public class MenuRepositoryImpl implements MenuRepository {
         // 分页参数
         PageDTO<MenuPO> menuPOPageDTO = menuMapper.selectPage(new PageDTO<>(pageNo, pageSize), queryWrapper);
 
-        return MenuDBConvertMapper.INSTANCE.poPageToDetailPage(menuPOPageDTO);
+        return MenuDBConvertMapper.INSTANCE.poPageToMenuPage(menuPOPageDTO);
     }
 
     @Override
     public Menu selectById(Long id){
         MenuPO menuPO = menuMapper.selectById(id);
-        return MenuDBConvertMapper.INSTANCE.poToDetail(menuPO);
+        return MenuDBConvertMapper.INSTANCE.poToMenu(menuPO);
     }
 
     @Override
     public List<Menu> selectBatchIds(List<Long> menuIdList) {
         List<MenuPO> menuPOList = menuMapper.selectBatchIds(menuIdList);
-        return MenuDBConvertMapper.INSTANCE.listPoToDetail(menuPOList);
+        return MenuDBConvertMapper.INSTANCE.listPoToMenu(menuPOList);
     }
 
     @Override
     public List<Menu> selectAll() {
         List<MenuPO> menuPOList = menuMapper.selectList(new LambdaQueryWrapper<>());
-        return MenuDBConvertMapper.INSTANCE.listPoToDetail(menuPOList);
+        return MenuDBConvertMapper.INSTANCE.listPoToMenu(menuPOList);
+    }
+
+    @Override
+    public List<Menu> selectByType(String type) {
+        List<MenuPO> menuPOList = menuMapper.selectList(new LambdaQueryWrapper<MenuPO>().eq(MenuPO::getType, type));
+        return MenuDBConvertMapper.INSTANCE.listPoToMenu(menuPOList);
+    }
+
+    @Override
+    public void insertBatchSomeColumn(List<Menu> menuList) {
+        List<MenuPO> menuPOList = MenuDBConvertMapper.INSTANCE.menuListToPoList(menuList);
+        menuMapper.insertBatchSomeColumn(menuPOList);
+
+    }
+
+    @Override
+    public List<Menu> selectByTypeAndPid(Long parentId, String type) {
+        LambdaQueryWrapper<MenuPO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(MenuPO::getType, type);
+        wrapper.eq(MenuPO::getParentId, parentId);
+        List<MenuPO> menuPOList = menuMapper.selectList(wrapper);
+        return MenuDBConvertMapper.INSTANCE.listPoToMenu(menuPOList);
+    }
+
+    @Override
+    public Boolean checkPath(String path) {
+        return menuMapper.exists(new LambdaQueryWrapper<MenuPO>().eq(MenuPO::getRoutePath, path));
     }
 }

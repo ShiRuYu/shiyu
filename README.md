@@ -1,6 +1,8 @@
 # shiyu
 
 #### 介绍
+对接前端：https://gitee.com/isme-admin/vue-naive-admin.git
+参考后端：http://github.com/DHBin/isme-java-serve.git
 
 #### 软件架构
 软件架构说明

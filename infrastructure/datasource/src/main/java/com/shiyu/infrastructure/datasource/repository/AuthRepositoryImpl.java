@@ -79,8 +79,7 @@ public class AuthRepositoryImpl implements AuthRepository {
     @Override
     public List<Long> selectUserRoleByUserId(Long userId) {
         LambdaQueryWrapper<UserRolePO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .eq(UserRolePO::getUserId, userId);
+        queryWrapper.eq(UserRolePO::getUserId, userId);
         return userRoleMapper.selectList(queryWrapper)
                 .stream()
                 .map(UserRolePO::getRoleId)

@@ -38,6 +38,6 @@ public class UserRolePO implements Serializable {
     /**
      * 0：删除  1：正常  
      */
-    private Integer delStatus;
+    private Integer delStatus = 1;
 }
 

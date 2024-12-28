@@ -71,9 +71,9 @@ public class UserPO implements Serializable {
     /**
      * 0:活跃
      */
-    private Integer status;
+    private Integer status = 0;
     /**
      * 0：删除 1：正常
      */
-    private Integer delStatus;
+    private Integer delStatus = 1;
 }

@@ -1,5 +1,6 @@
 package com.shiyu.infrastructure.datasource.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -92,17 +93,19 @@ public class MenuPO implements Serializable {
 
     /**
      * 是否展示在页面菜单 0：显示 1:隐藏
+     * show 为关键字，指定生成时使用 `` 包围
      */
-    private Integer show;
+    @TableField("`show`")
+    private Integer show = 0;
 
     /**
      * 0：可用 1:不可用
      */
-    private Integer status;
+    private Integer status = 0;
     
     /**
      * 0：删除  1：正常  
      */
-    private Integer delStatus;
+    private Integer delStatus = 1;
 }
 

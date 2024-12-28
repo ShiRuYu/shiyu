@@ -17,7 +17,6 @@ import com.shiyu.domain.auth.model.Role;
 import com.shiyu.domain.auth.model.User;
 import com.shiyu.domain.auth.model.UserAggregate;
 import com.shiyu.domain.auth.service.AuthService;
-import com.shiyu.domain.auth.service.RoleService;
 import com.shiyu.domain.auth.service.UserService;
 import com.shiyu.infrastructure.datasource.cache.CaptchaCacheHelper;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,6 @@ public class AuthManager {
     private final CaptchaCacheHelper captchaCacheHelper;
     private final AuthService authService;
     private final UserService userService;
-    private final RoleService roleService;
 
     public LoginResult login(LoginRequest request) {
         User user = userService.selectByUserName(request.getUsername());

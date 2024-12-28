@@ -14,12 +14,12 @@ import java.util.List;
 public interface RoleDBConvertMapper {
     RoleDBConvertMapper INSTANCE = Mappers.getMapper(RoleDBConvertMapper.class);
 
-    RolePO detailToPo(Role role);
+    RolePO roleToPo(Role role);
 
-    Role poToDetail(RolePO rolePO);
+    Role poToRole(RolePO rolePO);
 
-    List<Role> listPoToDetail(List<RolePO> rolePOList);
+    List<Role> listPoToRole(List<RolePO> rolePOList);
 
     @Mapping(source = "records",target = "data")
-    ResultPage<Role> poPageToDetailPage(PageDTO<RolePO> rolePOPageDTO);
+    ResultPage<Role> poPageToRolePage(PageDTO<RolePO> rolePOPageDTO);
 }
