@@ -1,7 +1,10 @@
 #服务配置
 server:
   port: 8080
-
+  #允许路径中带特殊字符
+  tomcat:
+    relaxed-path-chars: ['|','{','}','[',']']
+    relaxed-query-chars: ['|','{','}','[',']']
 spring:
   application:
     name: shiyu
