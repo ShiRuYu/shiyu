@@ -6,6 +6,7 @@ import com.shiyu.commons.utils.LoggerUtil;
 import com.shiyu.commons.utils.Result;
 import com.shiyu.commons.utils.exception.BadRequestException;
 import com.shiyu.commons.utils.exception.BizException;
+import com.shiyu.commons.utils.exception.ValidatorException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -45,6 +46,12 @@ public class GlobalExceptionHandler {
         return Result.fail(BizResultCode.ERR_10007, e.getMessage());
     }
 
+    @ExceptionHandler(ValidatorException.class)
+    public Result<String> exception(ValidatorException e) {
+        LoggerUtil.COMMON_LOGGER.error(e.getMessage(), e);
+        return Result.fail(BizResultCode.ERR_10007, e.getMessage());
+    }
+
     @ExceptionHandler(BadRequestException.class)
     public Result<String> exception(BadRequestException e) {
         LoggerUtil.COMMON_LOGGER.error(e.getMessage(), e);
@@ -57,8 +64,8 @@ public class GlobalExceptionHandler {
         return Result.fail(e.getCode(), e.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
-    public Result<String> exception(Exception e) {
+    @ExceptionHandler(value = {Exception.class, Throwable.class})
+    public Result<String> exception(Throwable e) {
         LoggerUtil.COMMON_LOGGER.error(e.getMessage(), e);
         return Result.fail(BizResultCode.ERR, e.getMessage());
     }
