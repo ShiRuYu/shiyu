@@ -13,11 +13,13 @@ public interface AuthService {
 
     void saveBatchRoleUser(Long roleId, List<Long> userIds);
 
-    UserAggregate getUserAggregateById(Long id);
+    UserAggregate selectUserAggregateById(Long id);
+
+    UserAggregate selectUserAggregateByUserName(String username);
 
     void saveBatchRoleMenu(Long roleId, List<Long> menuIds);
 
-    RoleAggregate getRoleAggregateById(Long id);
+    RoleAggregate selectRoleAggregateById(Long id);
 
     void removeBatchUserRole(Long roleId, List<Long> userIds);
 
@@ -26,4 +28,10 @@ public interface AuthService {
     List<Menu> selectMenuByRoleId(Long roleId);
 
     List<Role> selectRoleByUserId(Long userId);
+
+    List<Long> selectMenuIdByRoleId(Long roleId);
+
+    void removeMenuByRole(Long roleId);
+
+    void removeRoleByUser(Long userId);
 }

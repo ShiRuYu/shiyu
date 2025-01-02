@@ -69,16 +69,15 @@ CREATE TABLE IF NOT EXISTS `sy_role` (
   `update_time` datetime NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色名',
   `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'code',
-  `permission_ids` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `status` smallint DEFAULT '0' COMMENT '0：正常  ',
   `del_status` smallint DEFAULT '1' COMMENT '0：删除  1：正常  ',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色';
 
 -- 正在导出表  shiyu.sy_role 的数据：~2 rows (大约)
-INSERT INTO `sy_role` (`id`, `create_time`, `update_time`, `name`, `code`, `permission_ids`, `status`, `del_status`) VALUES
-	(1, '2024-11-16 19:33:15', '2024-12-27 21:14:49', '超级管理员', 'SUPER_ADMIN', NULL, 0, 1),
-	(2, '2024-11-16 19:33:47', '2024-12-27 21:14:58', '系统管理员', 'SYS_ADMIN', NULL, 0, 1);
+INSERT INTO `sy_role` (`id`, `create_time`, `update_time`, `name`, `code`, `status`, `del_status`) VALUES
+	(1, '2024-11-16 19:33:15', '2024-12-27 21:14:49', '超级管理员', 'SUPER_ADMIN', 0, 1),
+	(2, '2024-11-16 19:33:47', '2024-12-27 21:14:58', '系统管理员', 'SYS_ADMIN', 0, 1);
 
 -- 导出  表 shiyu.sy_role_menu 结构
 CREATE TABLE IF NOT EXISTS `sy_role_menu` (

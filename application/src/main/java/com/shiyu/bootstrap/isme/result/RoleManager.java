@@ -6,6 +6,7 @@ import com.shiyu.bootstrap.isme.util.IsmeUtil;
 import com.shiyu.bootstrap.isme.mapstract.IsmeMenuConvertMapper;
 import com.shiyu.bootstrap.isme.mapstract.IsmeRoleConvertMapper;
 import com.shiyu.bootstrap.isme.request.*;
+import com.shiyu.commons.utils.AssertUtils;
 import com.shiyu.commons.utils.ConvertUtil;
 import com.shiyu.commons.utils.ResultPage;
 import com.shiyu.commons.utils.enums.RoleEnum;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -32,8 +34,17 @@ public class RoleManager {
 
 
     public ResultPage<RolePageResult> findPage(RolePageRequest request) {
-        ResultPage<Role> roleResultPage = roleService.selectPage(request.getName(), ConvertUtil.booleanToInt(request.getEnable()), request.getPageNo(), request.getPageSize());
-        return IsmeRoleConvertMapper.INSTANCE.rolePageToPageResult(roleResultPage);
+        ResultPage<Role> roleResultPage = roleService.selectPage(request.getName(), ConvertUtil.booleanToInt(request.getEnable()),
+                request.getPageNo(), request.getPageSize());
+        if (CollectionUtils.isEmpty(roleResultPage.getData())) {
+            return ResultPage.success();
+        }
+        ResultPage<RolePageResult> rolePageResultResultPage = IsmeRoleConvertMapper.INSTANCE.rolePageToPageResult(roleResultPage);
+        rolePageResultResultPage.getData().forEach(rolePageResult -> {
+            List<Long> permissionIds = authService.selectMenuIdByRoleId(rolePageResult.getId());
+            rolePageResult.setPermissionIds(permissionIds);
+        });
+        return rolePageResultResultPage;
     }
 
     public List<RoleResult> findAll(Boolean enable) {
@@ -55,9 +66,18 @@ public class RoleManager {
         if (ObjectUtil.isNotNull(request.getEnable())) {
             role.setStatus(ConvertUtil.booleanToInt(request.getEnable()));
         }
-        if (CollectionUtils.isNotEmpty(request.getPermissionIds())){
-            authService.saveBatchRoleMenu(id, request.getPermissionIds());
-        }
+        List<Long> permissionIds = request.getPermissionIds();
+        AssertUtils.isNotEmpty(permissionIds,"菜单至少分配一个");
+
+        List<Long> roleIds = authService.selectMenuIdByRoleId(id);
+        List<Long> collect = permissionIds.stream()
+                .filter(Objects::nonNull)
+                .filter(permissionId -> !roleIds.contains(permissionId))
+                .toList();
+
+        //todo 优化
+        authService.removeMenuByRole(id);
+        authService.saveBatchRoleMenu(id, collect);
         roleService.update(role);
     }
 
@@ -79,7 +99,11 @@ public class RoleManager {
             throw new BadRequestException("角色已存在（角色名和角色编码不能重复）");
         }
         Role role = IsmeRoleConvertMapper.INSTANCE.createRoleRequestToRole(request);
-        roleService.save(role);
+        Role savedRole = roleService.save(role);
+        if (CollectionUtils.isNotEmpty(request.getPermissionIds())) {
+            authService.saveBatchRoleMenu(savedRole.getId(), request.getPermissionIds());
+        }
+
     }
 
     public List<Tree<Long>> findRoleMenuTree(String roleCode) {

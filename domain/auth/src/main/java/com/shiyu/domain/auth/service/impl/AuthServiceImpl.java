@@ -23,7 +23,18 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
 
     @Override
-    public UserAggregate getUserAggregateById(Long id) {
+    public UserAggregate selectUserAggregateByUserName(String username) {
+        User user = userRepository.selectByUserName(username);
+        if (Objects.isNull(user)){
+            return null;
+        }
+        UserAggregate userAggregate = UserConvertMapper.INSTANCE.userToAggregate(user);
+        List<Role> roles = roleRepository.selectBatchIds(authRepository.selectUserRoleByUserId(user.getId()));
+        userAggregate.setRoleList(roles);
+        return userAggregate;
+    }
+    @Override
+    public UserAggregate selectUserAggregateById(Long id) {
         User user = userRepository.selectById(id);
         if (Objects.isNull(user)){
             return null;
@@ -35,13 +46,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public RoleAggregate getRoleAggregateById(Long id) {
+    public RoleAggregate selectRoleAggregateById(Long id) {
         Role role = roleRepository.selectById(id);
         if (Objects.isNull(role)){
             return null;
         }
         RoleAggregate roleAggregate = RoleConvertMapper.INSTANCE.roleToAggregate(role);
-        List<Menu> menus = menuRepository.selectBatchIds(authRepository.selectRoleMenuByRoleId(id));
+        List<Menu> menus = menuRepository.selectBatchIds(authRepository.selectMenuIdByRoleId(id));
         roleAggregate.setMenuList(menus);
         return roleAggregate;
     }
@@ -58,12 +69,27 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public List<Menu> selectMenuByRoleId(Long roleId) {
-        return menuRepository.selectBatchIds(authRepository.selectRoleMenuByRoleId(roleId));
+        return menuRepository.selectBatchIds(authRepository.selectMenuIdByRoleId(roleId));
     }
 
     @Override
     public List<Role> selectRoleByUserId(Long userId) {
         return roleRepository.selectBatchIds(authRepository.selectUserRoleByUserId(userId));
+    }
+
+    @Override
+    public List<Long> selectMenuIdByRoleId(Long roleId) {
+        return authRepository.selectMenuIdByRoleId(roleId);
+    }
+
+    @Override
+    public void removeMenuByRole(Long roleId) {
+        authRepository.removeMenuByRole(roleId);
+    }
+
+    @Override
+    public void removeRoleByUser(Long userId) {
+        authRepository.removeRoleByUser(userId);
     }
 
     @Override

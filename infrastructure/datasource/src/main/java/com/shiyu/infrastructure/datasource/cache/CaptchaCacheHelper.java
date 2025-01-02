@@ -5,14 +5,16 @@ import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.ICaptcha;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.shiyu.commons.utils.cache.CacheHelper;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class CaptchaCacheHelper extends CacheHelper<String,ICaptcha>{
+public class CaptchaCacheHelper extends CacheHelper<String,ICaptcha> implements InitializingBean {
 
     @Override
     public Cache<String, ICaptcha> createCache() {
@@ -51,4 +53,9 @@ public class CaptchaCacheHelper extends CacheHelper<String,ICaptcha>{
         return captcha.verify(code);
     }
 
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        this.cache = createCache();
+    }
 }

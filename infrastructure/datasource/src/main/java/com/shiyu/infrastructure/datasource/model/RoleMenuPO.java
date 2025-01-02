@@ -1,17 +1,17 @@
 package com.shiyu.infrastructure.datasource.model;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.shiyu.framework.mybatisplus.dataobject.BaseDO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("sy_role_menu")
-public class RoleMenuPO implements Serializable {
+public class RoleMenuPO extends BaseDO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 479366146899215994L;
@@ -20,16 +20,6 @@ public class RoleMenuPO implements Serializable {
      */
     private Long id;
     /**
-     * 创建时间
-     */
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-    /**
-     * 更新时间
-     */
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
-    /**
      * 角色ID
      */
     private Long roleId;
@@ -37,10 +27,5 @@ public class RoleMenuPO implements Serializable {
      * 菜单ID
      */
     private Long menuId;
-    
-    /**
-     * 0：删除  1：正常  
-     */
-    private Integer delStatus = 1;
 }
 

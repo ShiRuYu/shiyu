@@ -1,7 +1,6 @@
 package com.shiyu.domain.auth.service.impl;
 
 import com.shiyu.commons.utils.ResultPage;
-import com.shiyu.commons.utils.enums.MenuTypeEnum;
 import com.shiyu.domain.auth.model.Menu;
 import com.shiyu.domain.auth.repository.MenuRepository;
 import com.shiyu.domain.auth.service.MenuService;

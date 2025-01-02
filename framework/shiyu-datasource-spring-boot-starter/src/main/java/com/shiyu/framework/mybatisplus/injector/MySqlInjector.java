@@ -1,4 +1,4 @@
-package com.shiyu.infrastructure.datasource.config;
+package com.shiyu.framework.mybatisplus.injector;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;

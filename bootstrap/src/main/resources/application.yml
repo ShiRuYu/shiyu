@@ -12,3 +12,7 @@ spring:
     group:
       dev: web,druid,mysql,mybatis-plus
     default: dev
+shiyu:
+  info:
+    mybatis:
+      base-package: com.shiyu.infrastructure.datasource.mapper

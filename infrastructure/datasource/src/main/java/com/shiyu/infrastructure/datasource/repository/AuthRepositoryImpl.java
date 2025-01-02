@@ -77,6 +77,20 @@ public class AuthRepositoryImpl implements AuthRepository {
     }
 
     @Override
+    public void removeMenuByRole(Long roleId) {
+        LambdaQueryWrapper<RoleMenuPO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(RoleMenuPO::getRoleId, roleId);
+        roleMenuMapper.delete(queryWrapper);
+    }
+
+    @Override
+    public void removeRoleByUser(Long userId) {
+        LambdaQueryWrapper<UserRolePO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserRolePO::getUserId, userId);
+        userRoleMapper.delete(queryWrapper);
+    }
+
+    @Override
     public List<Long> selectUserRoleByUserId(Long userId) {
         LambdaQueryWrapper<UserRolePO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UserRolePO::getUserId, userId);
@@ -141,7 +155,7 @@ public class AuthRepositoryImpl implements AuthRepository {
     }
 
     @Override
-    public List<Long> selectRoleMenuByRoleId(Long roleId) {
+    public List<Long> selectMenuIdByRoleId(Long roleId) {
         LambdaQueryWrapper<RoleMenuPO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
                 .eq(RoleMenuPO::getRoleId, roleId);
@@ -152,7 +166,7 @@ public class AuthRepositoryImpl implements AuthRepository {
     }
 
     @Override
-    public List<Long> selectRoleMenuByMenuId(Long menuId) {
+    public List<Long> selectRoleIdByMenuId(Long menuId) {
         LambdaQueryWrapper<RoleMenuPO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
                 .eq(RoleMenuPO::getMenuId, menuId);

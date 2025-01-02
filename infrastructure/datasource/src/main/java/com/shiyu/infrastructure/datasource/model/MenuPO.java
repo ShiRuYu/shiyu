@@ -2,15 +2,18 @@ package com.shiyu.infrastructure.datasource.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.shiyu.framework.mybatisplus.dataobject.BaseDO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("sy_menu")
-public class MenuPO implements Serializable {
+public class MenuPO extends BaseDO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -50706392183930184L;
@@ -18,14 +21,7 @@ public class MenuPO implements Serializable {
      * ID
      */
     private Long id;
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
+
     /**
      * 上级id，根节点：0
      */
@@ -102,10 +98,5 @@ public class MenuPO implements Serializable {
      * 0：可用 1:不可用
      */
     private Integer status = 0;
-    
-    /**
-     * 0：删除  1：正常  
-     */
-    private Integer delStatus = 1;
 }
 

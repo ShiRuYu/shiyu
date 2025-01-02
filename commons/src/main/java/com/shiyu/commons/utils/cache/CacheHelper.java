@@ -1,13 +1,12 @@
-package com.shiyu.infrastructure.datasource.cache;
+package com.shiyu.commons.utils.cache;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.beans.factory.InitializingBean;
 
-public abstract class CacheHelper<K, V> implements InitializingBean {
+public abstract class CacheHelper<K, V> {
 
     // 创建缓存实例
-    private Cache<K, V> cache;
+    public Cache<K, V> cache;
 
     // 获取缓存中的值
     public V get(K key) {
@@ -47,9 +46,4 @@ public abstract class CacheHelper<K, V> implements InitializingBean {
 
     //创建缓存
     public abstract Pair<K, V> create();
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        this.cache = createCache();
-    }
 }

@@ -24,6 +24,7 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <h2.version>2.3.232</h2.version>
         <fastjson2.version>2.0.44</fastjson2.version>
+        <fastexcel.version>1.0.0</fastexcel.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <hutool.version>5.8.21</hutool.version>
@@ -41,6 +42,7 @@
     </properties>
 
     <modules>
+        <module>framework</module>
         <module>application</module>
         <module>bootstrap</module>
         <module>commons</module>
@@ -95,6 +97,13 @@
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson2.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/cn.idev.excel/fastexcel -->
+            <dependency>
+                <groupId>cn.idev.excel</groupId>
+                <artifactId>fastexcel</artifactId>
+                <version>${fastexcel.version}</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -208,6 +217,12 @@
             <dependency>
                 <groupId>com.shiyu</groupId>
                 <artifactId>web</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shiyu.framework</groupId>
+                <artifactId>shiyu-datasource-spring-boot-starter</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 

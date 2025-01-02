@@ -1,10 +1,10 @@
-package com.shiyu.infrastructure.datasource.config;
+package com.shiyu.framework.mybatisplus.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.Collection;
 
-public interface MyBaseMapper<T> extends BaseMapper<T> {
+public interface BaseMapperX<T> extends BaseMapper<T> {
     int insertBatchSomeColumn(Collection<T> entityList);
 }
 

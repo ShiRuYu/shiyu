@@ -1,0 +1,2 @@
+com.shiyu.framework.druid.config.DataSourceAutoConfiguration
+com.shiyu.framework.mybatisplus.config.MyBatisConfig
