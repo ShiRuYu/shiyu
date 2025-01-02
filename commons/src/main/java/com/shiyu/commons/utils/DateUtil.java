@@ -160,8 +160,6 @@ public class DateUtil {
      * @return
      */
     public static long betweenDay(LocalDateTime beg, LocalDateTime end) {
-        /*Duration duration = Duration.between(beg,end);
-        return duration.toDays();*/
         return beg.until(end, ChronoUnit.DAYS);
     }
 

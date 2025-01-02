@@ -1,7 +1,6 @@
 package com.shiyu.domain.auth.service;
 
 import com.shiyu.commons.utils.ResultPage;
-import com.shiyu.commons.utils.enums.MenuTypeEnum;
 import com.shiyu.domain.auth.model.Menu;
 
 import java.util.List;

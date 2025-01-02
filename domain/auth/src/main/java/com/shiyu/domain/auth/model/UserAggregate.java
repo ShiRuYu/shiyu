@@ -1,5 +1,8 @@
 package com.shiyu.domain.auth.model;
 
+import cn.hutool.crypto.digest.BCrypt;
+import com.shiyu.commons.utils.AssertUtils;
+import com.shiyu.commons.utils.BizResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -86,12 +89,19 @@ public class UserAggregate {
      */
     private List<Role> roleList;
 
-    public Role getCurrentRole(){
+    public Role getCurrentRole(String roleCode){
+        if (StringUtils.isNotBlank(roleCode)){
+            return roleList.stream().filter(role -> role.getCode().equals(roleCode)).findFirst().orElse(null);
+        }
         String currentRoleCode = MapUtils.getString(extInfo, "currentRoleCode", null);
         if (StringUtils.isNotBlank(currentRoleCode)){
-            roleList.stream().filter(role -> role.getCode().equals(currentRoleCode)).findFirst().orElse(null);
+            return roleList.stream().filter(role -> role.getCode().equals(currentRoleCode)).findFirst().orElse(null);
         }
         return roleList.stream().findFirst().orElse(null);
+    }
+    public void checkPwd(String newPwd, String oldPwd){
+        //登录
+        AssertUtils.isTrue(BCrypt.checkpw(newPwd, oldPwd), BizResultCode.ERR_10004);
     }
 
 }

@@ -36,11 +36,6 @@ public class Role {
     private String code;
 
     /**
-     * code
-     */
-    private String permissionIds;
-
-    /**
      * 0：正常
      */
     private Integer status;

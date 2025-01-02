@@ -34,11 +34,6 @@ public class RolePO implements Serializable {
      * code
      */
     private String code;
-
-    /**
-     * code
-     */
-    private String permissionIds;
     
     /**
      * 0：正常  

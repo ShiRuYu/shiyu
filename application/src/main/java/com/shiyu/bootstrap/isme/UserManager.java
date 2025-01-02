@@ -8,6 +8,7 @@ import com.shiyu.bootstrap.isme.request.UpdatePasswordRequest;
 import com.shiyu.bootstrap.isme.request.UserPageRequest;
 import com.shiyu.bootstrap.isme.result.UserDetailResult;
 import com.shiyu.bootstrap.isme.result.UserPageResult;
+import com.shiyu.commons.utils.AssertUtils;
 import com.shiyu.commons.utils.BizResultCode;
 import com.shiyu.commons.utils.ConvertUtil;
 import com.shiyu.commons.utils.ResultPage;
@@ -31,7 +32,7 @@ public class UserManager {
     private final UserService userService;
 
     public UserDetailResult detail(Long userId, String roleCode) {
-        UserAggregate userAgg = authService.getUserAggregateById(userId);
+        UserAggregate userAgg = authService.selectUserAggregateById(userId);
         UserDetailResult userDetailResult = IsmeUserConvertMapper.INSTANCE.userAggToUserDetailResult(userAgg);
         //用户角色
         List<Role> roleList = userAgg.getRoleList();
@@ -39,7 +40,7 @@ public class UserManager {
             throw new BizException(BizResultCode.ERR_11005);
         }
         userDetailResult.setRoles(IsmeRoleConvertMapper.INSTANCE.roleListToRoleResultList(roleList));
-        Role currentRole = userAgg.getCurrentRole();
+        Role currentRole = userAgg.getCurrentRole(roleCode);
         userDetailResult.setCurrentRole(IsmeRoleConvertMapper.INSTANCE.roleToRoleResult(currentRole));
 
         return userDetailResult;
@@ -71,10 +72,8 @@ public class UserManager {
     }
 
     public void create(RegisterUserRequest request) {
-        boolean exists = userService.checkUserName(request.getUsername());
-        if (exists) {
-            throw new BizException(BizResultCode.ERR_10001);
-        }
+        AssertUtils.isFalse(userService.checkUserName(request.getUsername()), BizResultCode.ERR_10001);
+
         User user = IsmeUserConvertMapper.INSTANCE.registerUserToUser(request);
         user.setPassword(BCrypt.hashpw(user.getPassword()));
         User save = userService.save(user);

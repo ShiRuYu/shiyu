@@ -1,7 +1,6 @@
 package com.shiyu.web.isme.controller;
 
 import cn.hutool.core.lang.tree.Tree;
-import com.google.common.collect.Lists;
 import com.shiyu.bootstrap.isme.MenuManager;
 import com.shiyu.commons.utils.Result;
 import com.shiyu.bootstrap.isme.request.CreatePermissionRequest;

@@ -10,6 +10,7 @@ import com.shiyu.bootstrap.isme.request.ChangePasswordRequest;
 import com.shiyu.bootstrap.isme.request.LoginRequest;
 import com.shiyu.bootstrap.isme.request.RegisterUserRequest;
 import com.shiyu.bootstrap.isme.result.LoginResult;
+import com.shiyu.commons.utils.AssertUtils;
 import com.shiyu.commons.utils.BizResultCode;
 import com.shiyu.commons.utils.ShiYuConstants;
 import com.shiyu.commons.utils.exception.BizException;
@@ -34,27 +35,18 @@ public class AuthManager {
     private final UserService userService;
 
     public LoginResult login(LoginRequest request) {
-        User user = userService.selectByUserName(request.getUsername());
-        if (user == null) {
-            throw new BizException(BizResultCode.ERR_10002);
-        }
         //校验验证码
-        if (StringUtils.isBlank(request.getCaptchaKey())
-                || !captchaCacheHelper.verify(request.getCaptchaKey(), request.getCaptcha())) {
-            throw new BizException(BizResultCode.ERR_10003);
-        }
+        AssertUtils.isTrue(StringUtils.isBlank(request.getCaptchaKey())
+                || !captchaCacheHelper.verify(request.getCaptchaKey(), request.getCaptcha()), BizResultCode.ERR_10003);
+        //用户聚合根
+        UserAggregate userAgg = authService.selectUserAggregateByUserName(request.getUsername());
+        AssertUtils.nonNull(userAgg, BizResultCode.ERR_10002);
         //登录
-        boolean checkPw = BCrypt.checkpw(request.getPassword(), user.getPassword());
-        if (checkPw) {
-            //用户聚合根
-            UserAggregate userAgg = authService.getUserAggregateById(user.getId());
-            //用户的角色
-            List<Role> roleList = userAgg.getRoleList();
-            //生成token
-            return generateToken(userAgg, roleList.isEmpty() ? "" : roleList.get(0).getCode());
-        } else {
-            throw new BizException(BizResultCode.ERR_10002);
-        }
+        userAgg.checkPwd(request.getPassword(), userAgg.getPassword());
+        //用户的角色
+        List<Role> roleList = userAgg.getRoleList();
+        //生成token
+        return generateToken(userAgg, roleList.isEmpty() ? "" : roleList.get(0).getCode());
     }
 
     private LoginResult generateToken(UserAggregate userAgg, String currentRoleCode) {
@@ -72,7 +64,7 @@ public class AuthManager {
 
     public LoginResult switchRole(Long userId, String roleCode) {
         //用户聚合根
-        UserAggregate userAgg = authService.getUserAggregateById(userId);
+        UserAggregate userAgg = authService.selectUserAggregateById(userId);
         //用户的角色
         List<Role> roleList = userAgg.getRoleList();
         roleList.stream()
@@ -84,10 +76,8 @@ public class AuthManager {
     }
 
     public void register(RegisterUserRequest request) {
-        boolean exists = userService.checkUserName(request.getUsername());
-        if (exists) {
-            throw new BizException(BizResultCode.ERR_10001);
-        }
+        AssertUtils.isFalse(userService.checkUserName(request.getUsername()), BizResultCode.ERR_10001);
+
         User user = IsmeUserConvertMapper.INSTANCE.registerUserToUser(request);
         user.setPassword(BCrypt.hashpw(user.getPassword()));
         User save = userService.save(user);

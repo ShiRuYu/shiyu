@@ -32,8 +32,17 @@ public class RoleManager {
 
 
     public ResultPage<RolePageResult> findPage(RolePageRequest request) {
-        ResultPage<Role> roleResultPage = roleService.selectPage(request.getName(), ConvertUtil.booleanToInt(request.getEnable()), request.getPageNo(), request.getPageSize());
-        return IsmeRoleConvertMapper.INSTANCE.rolePageToPageResult(roleResultPage);
+        ResultPage<Role> roleResultPage = roleService.selectPage(request.getName(), ConvertUtil.booleanToInt(request.getEnable()),
+                request.getPageNo(), request.getPageSize());
+        if (CollectionUtils.isEmpty(roleResultPage.getData())) {
+            return ResultPage.success();
+        }
+        ResultPage<RolePageResult> rolePageResultResultPage = IsmeRoleConvertMapper.INSTANCE.rolePageToPageResult(roleResultPage);
+        rolePageResultResultPage.getData().forEach(rolePageResult -> {
+            List<Long> permissionIds = authService.selectMenuIdByRoleId(rolePageResult.getId());
+            rolePageResult.setPermissionIds(permissionIds);
+        });
+        return rolePageResultResultPage;
     }
 
     public List<RoleResult> findAll(Boolean enable) {
@@ -79,7 +88,11 @@ public class RoleManager {
             throw new BadRequestException("角色已存在（角色名和角色编码不能重复）");
         }
         Role role = IsmeRoleConvertMapper.INSTANCE.createRoleRequestToRole(request);
-        roleService.save(role);
+        Role savedRole = roleService.save(role);
+        if (CollectionUtils.isNotEmpty(request.getPermissionIds())) {
+            authService.saveBatchRoleMenu(savedRole.getId(), request.getPermissionIds());
+        }
+
     }
 
     public List<Tree<Long>> findRoleMenuTree(String roleCode) {
