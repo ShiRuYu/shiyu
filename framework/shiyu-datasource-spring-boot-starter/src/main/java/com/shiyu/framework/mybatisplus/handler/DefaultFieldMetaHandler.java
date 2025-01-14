@@ -3,7 +3,6 @@ package com.shiyu.framework.mybatisplus.handler;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.shiyu.framework.mybatisplus.dataobject.BaseDO;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

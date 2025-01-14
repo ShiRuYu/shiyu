@@ -21,11 +21,6 @@
             <groupId>com.shiyu</groupId>
             <artifactId>web</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <finalName>shiyu</finalName>

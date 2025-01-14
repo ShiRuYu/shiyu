@@ -34,9 +34,8 @@
         <sa-token-jwt.version>1.39.0</sa-token-jwt.version>
         <druid-spring-boot-3-starter.version>1.2.21</druid-spring-boot-3-starter.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
-        <mybatis-spring-boot-starter.version>3.0.3</mybatis-spring-boot-starter.version>
-        <mybatis-plus-boot-starter.version>3.5.5</mybatis-plus-boot-starter.version>
-        <mybatis-spring.version>3.0.3</mybatis-spring.version>
+
+        <mybatis-plus-spring-boot3-starter.version>3.5.10</mybatis-plus-spring-boot3-starter.version>
 
         <knife4j-openapi3.version>4.5.0</knife4j-openapi3.version>
     </properties>
@@ -162,31 +161,17 @@
                 <version>${druid-spring-boot-3-starter.version}</version>
             </dependency>
 
-            <!-- mybatis-plus -->
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-spring-boot3-starter -->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus-boot-starter.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.baomidou</groupId>
-                        <artifactId>mybatis-plus-generator</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.mybatis</groupId>
-                        <artifactId>mybatis-spring</artifactId>
-                    </exclusion>
-                    <!-- 排除默认的 HikariCP 数据源 -->
-                    <exclusion>
-                        <groupId>com.zaxxer</groupId>
-                        <artifactId>HikariCP</artifactId>
-                    </exclusion>
-                </exclusions>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus-spring-boot3-starter.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-jsqlparser -->
             <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis-spring</artifactId>
-                <version>${mybatis-spring.version}</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis-plus-spring-boot3-starter.version}</version>
             </dependency>
 
             <dependency>

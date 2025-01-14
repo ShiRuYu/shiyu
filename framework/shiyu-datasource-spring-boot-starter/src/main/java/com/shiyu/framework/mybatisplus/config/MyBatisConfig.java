@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.shiyu.framework.mybatisplus.handler.DefaultFieldMetaHandler;
 import com.shiyu.framework.mybatisplus.injector.MySqlInjector;
@@ -31,8 +30,6 @@ public class MyBatisConfig {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         //添加分页插件
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
-        //添加乐观锁插件
-        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
         return interceptor;
     }
 }
