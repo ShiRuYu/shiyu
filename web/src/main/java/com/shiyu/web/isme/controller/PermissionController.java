@@ -1,6 +1,5 @@
 package com.shiyu.web.isme.controller;
 
-import cn.hutool.core.lang.tree.Tree;
 import com.shiyu.bootstrap.isme.MenuManager;
 import com.shiyu.commons.utils.Result;
 import com.shiyu.bootstrap.isme.request.CreatePermissionRequest;
@@ -9,6 +8,7 @@ import com.shiyu.bootstrap.isme.result.PermissionResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.dromara.hutool.core.tree.MapTree;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,15 +27,15 @@ public class PermissionController {
 
     @GetMapping("menu/tree")
     @Operation(summary = "获取菜单树")
-    public Result<List<Tree<Long>>> findMenuTree() {
-        List<Tree<Long>> tree = menuManager.findAllMenuTree();
+    public Result<List<MapTree<Long>>> findMenuTree() {
+        List<MapTree<Long>> tree = menuManager.findAllMenuTree();
         return Result.success(tree);
     }
 
     @GetMapping("/tree")
     @Operation(summary = "获取所有权限树")
-    public Result<List<Tree<Long>>> findAllTree() {
-        List<Tree<Long>> tree = menuManager.findAllTree();
+    public Result<List<MapTree<Long>>> findAllTree() {
+        List<MapTree<Long>> tree = menuManager.findAllTree();
         return Result.success(tree);
     }
 

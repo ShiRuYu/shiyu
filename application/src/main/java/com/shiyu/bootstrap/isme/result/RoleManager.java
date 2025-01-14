@@ -1,7 +1,5 @@
 package com.shiyu.bootstrap.isme.result;
 
-import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.util.ObjectUtil;
 import com.shiyu.bootstrap.isme.util.IsmeUtil;
 import com.shiyu.bootstrap.isme.mapstract.IsmeMenuConvertMapper;
 import com.shiyu.bootstrap.isme.mapstract.IsmeRoleConvertMapper;
@@ -19,6 +17,7 @@ import com.shiyu.domain.auth.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.tree.MapTree;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -62,7 +61,7 @@ public class RoleManager {
         if (StringUtils.isNotBlank(request.getName())) {
             role.setName(request.getName());
         }
-        if (ObjectUtil.isNotNull(request.getEnable())) {
+        if (Objects.nonNull(request.getEnable())) {
             role.setStatus(ConvertUtil.booleanToInt(request.getEnable()));
         }
         List<Long> permissionIds = request.getPermissionIds();
@@ -105,7 +104,7 @@ public class RoleManager {
 
     }
 
-    public List<Tree<Long>> findRoleMenuTree(String roleCode) {
+    public List<MapTree<Long>> findRoleMenuTree(String roleCode) {
         Role role = roleService.selectByCode(roleCode);
         if (Objects.isNull(role)) {
             throw new BadRequestException("当前角色不存在或者已删除");

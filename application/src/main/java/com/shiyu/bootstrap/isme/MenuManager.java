@@ -1,6 +1,5 @@
 package com.shiyu.bootstrap.isme;
 
-import cn.hutool.core.lang.tree.Tree;
 import com.shiyu.bootstrap.isme.mapstract.IsmeMenuConvertMapper;
 import com.shiyu.bootstrap.isme.request.CreatePermissionRequest;
 import com.shiyu.bootstrap.isme.request.UpdatePermissionRequest;
@@ -11,6 +10,7 @@ import com.shiyu.domain.auth.model.Menu;
 import com.shiyu.domain.auth.service.AuthService;
 import com.shiyu.domain.auth.service.MenuService;
 import lombok.RequiredArgsConstructor;
+import org.dromara.hutool.core.tree.MapTree;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class MenuManager {
     private final AuthService authService;
     private final MenuService menuService;
 
-    public List<Tree<Long>> findAllMenuTree() {
+    public List<MapTree<Long>> findAllMenuTree() {
         List<Menu> menuList = menuService.selectByType(MenuTypeEnum.MENU.getCode());
 
         List<PermissionResult> permissionResults = IsmeMenuConvertMapper.INSTANCE.menuListToPermissionResultList(menuList);
@@ -29,7 +29,7 @@ public class MenuManager {
         return IsmeUtil.buildPermissionTree(permissionResults);
     }
 
-    public List<Tree<Long>> findAllTree() {
+    public List<MapTree<Long>> findAllTree() {
         List<Menu> menuList = menuService.selectAll();
 
         List<PermissionResult> permissionResults = IsmeMenuConvertMapper.INSTANCE.menuListToPermissionResultList(menuList);

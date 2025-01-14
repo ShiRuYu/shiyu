@@ -1,6 +1,5 @@
 package com.shiyu.bootstrap.isme;
 
-import cn.hutool.crypto.digest.BCrypt;
 import com.shiyu.bootstrap.isme.mapstract.IsmeRoleConvertMapper;
 import com.shiyu.bootstrap.isme.mapstract.IsmeUserConvertMapper;
 import com.shiyu.bootstrap.isme.request.RegisterUserRequest;
@@ -21,6 +20,7 @@ import com.shiyu.domain.auth.service.UserService;
 import com.shiyu.domain.auth.query.UserQueryCondition;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
+import org.dromara.hutool.crypto.digest.BCrypt;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

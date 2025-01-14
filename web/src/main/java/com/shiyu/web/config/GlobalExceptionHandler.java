@@ -1,6 +1,5 @@
 package com.shiyu.web.config;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.shiyu.commons.utils.BizResultCode;
 import com.shiyu.commons.utils.LoggerUtil;
 import com.shiyu.commons.utils.Result;
@@ -8,6 +7,7 @@ import com.shiyu.commons.utils.exception.BadRequestException;
 import com.shiyu.commons.utils.exception.BizException;
 import com.shiyu.commons.utils.exception.ValidatorException;
 import jakarta.validation.ConstraintViolationException;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
     }
 
     private String getBindingResult(BindException e, BindingResult bindingResult) {
-        if (CollectionUtil.isNotEmpty(bindingResult.getFieldErrors())) {
+        if (CollectionUtils.isNotEmpty(bindingResult.getFieldErrors())) {
             StringBuilder stringBuilder = new StringBuilder();
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
                 stringBuilder.append(fieldError.getField())

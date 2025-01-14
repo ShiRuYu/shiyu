@@ -1,7 +1,5 @@
 package com.shiyu.commons.utils;
 
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.ArrayUtil;
 import com.shiyu.commons.utils.exception.ValidatorException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -9,6 +7,8 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import jakarta.validation.executable.ExecutableValidator;
 import jakarta.validation.groups.Default;
+import org.apache.commons.collections4.CollectionUtils;
+import org.dromara.hutool.core.array.ArrayUtil;
 import org.hibernate.validator.HibernateValidator;
 
 import java.lang.reflect.Method;
@@ -84,7 +84,7 @@ public class ValidatorUtils {
      * @param resultSet 异常结果
      */
     private static void throwIfHaveResult(Set<ConstraintViolation<Object>> resultSet) {
-        if (CollectionUtil.isNotEmpty(resultSet)) {
+        if (CollectionUtils.isNotEmpty(resultSet)) {
             String message = resultSet.stream().map(
                     result -> result.getPropertyPath() + result.getMessage() + "(" + result.getInvalidValue()
                             + ")").collect(
@@ -101,7 +101,7 @@ public class ValidatorUtils {
      */
     public static <T> void fastValidate(T t) {
         Set<ConstraintViolation<T>> resultSet = FAST_VALIDATOR_FACTORY.getValidator().validate(t, Default.class);
-        if (CollectionUtil.isNotEmpty(resultSet)) {
+        if (CollectionUtils.isNotEmpty(resultSet)) {
             String message = resultSet.stream().map(
                     result -> result.getPropertyPath() + result.getMessage() + "(" + result.getInvalidValue()
                             + ")").collect(

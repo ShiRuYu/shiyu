@@ -1,17 +1,18 @@
 package com.shiyu.domain.auth.util;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeUtil;
+
 import com.shiyu.domain.auth.model.Menu;
 import org.apache.commons.collections4.CollectionUtils;
+import org.dromara.hutool.core.bean.BeanUtil;
+import org.dromara.hutool.core.tree.MapTree;
+import org.dromara.hutool.core.tree.TreeNode;
+import org.dromara.hutool.core.tree.TreeUtil;
 
 import java.util.List;
 
 public class ShiYuTreeUtil {
 
-    public static List<Tree<Long>> buildMenuTree(List<Menu> menuList){
+    public static List<MapTree<Long>> buildMenuTree(List<Menu> menuList){
         if (CollectionUtils.isEmpty(menuList)){
             return null;
         }

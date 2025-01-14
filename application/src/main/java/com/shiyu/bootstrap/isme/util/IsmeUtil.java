@@ -1,16 +1,17 @@
 package com.shiyu.bootstrap.isme.util;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeUtil;
+
 import com.shiyu.bootstrap.isme.result.PermissionResult;
 import org.apache.commons.collections4.CollectionUtils;
+import org.dromara.hutool.core.bean.BeanUtil;
+import org.dromara.hutool.core.tree.MapTree;
+import org.dromara.hutool.core.tree.TreeNode;
+import org.dromara.hutool.core.tree.TreeUtil;
 
 import java.util.List;
 
 public class IsmeUtil {
-    public static List<Tree<Long>> buildPermissionTree(List<PermissionResult> permissionResults){
+    public static List<MapTree<Long>> buildPermissionTree(List<PermissionResult> permissionResults){
         if (CollectionUtils.isEmpty(permissionResults)){
             return null;
         }

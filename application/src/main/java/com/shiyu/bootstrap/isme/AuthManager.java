@@ -4,7 +4,6 @@ import cn.dev33.satoken.stp.SaLoginConfig;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.convert.NumberWithFormat;
-import cn.hutool.crypto.digest.BCrypt;
 import com.shiyu.bootstrap.isme.mapstract.IsmeUserConvertMapper;
 import com.shiyu.bootstrap.isme.request.ChangePasswordRequest;
 import com.shiyu.bootstrap.isme.request.LoginRequest;
@@ -23,6 +22,7 @@ import com.shiyu.infrastructure.datasource.cache.CaptchaCacheHelper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.crypto.digest.BCrypt;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

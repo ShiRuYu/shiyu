@@ -1,6 +1,5 @@
 package com.shiyu.domain.auth.model;
 
-import cn.hutool.crypto.digest.BCrypt;
 import com.shiyu.commons.utils.AssertUtils;
 import com.shiyu.commons.utils.BizResultCode;
 import lombok.AllArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.crypto.digest.BCrypt;
 
 import java.time.LocalDateTime;
 import java.util.List;

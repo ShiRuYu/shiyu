@@ -1,12 +1,12 @@
 package com.shiyu.infrastructure.datasource.cache;
 
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.CircleCaptcha;
-import cn.hutool.captcha.ICaptcha;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.shiyu.commons.utils.cache.CacheHelper;
 import org.apache.commons.lang3.tuple.Pair;
+import org.dromara.hutool.swing.captcha.CaptchaUtil;
+import org.dromara.hutool.swing.captcha.CircleCaptcha;
+import org.dromara.hutool.swing.captcha.ICaptcha;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class CaptchaCacheHelper extends CacheHelper<String,ICaptcha> implements InitializingBean {
+public class CaptchaCacheHelper extends CacheHelper<String, ICaptcha> implements InitializingBean {
 
     @Override
     public Cache<String, ICaptcha> createCache() {
@@ -40,7 +40,7 @@ public class CaptchaCacheHelper extends CacheHelper<String,ICaptcha> implements 
 
     //创建新的验证码
     private CircleCaptcha getCaptcha(){
-        return CaptchaUtil.createCircleCaptcha(80, 40, 4, 4);
+        return CaptchaUtil.ofCircleCaptcha(80, 40, 4, 4);
     }
 
     //验证
